@@ -1,0 +1,54 @@
+\documentclass{standalone}
+\input{../font}
+\input{../tikz}
+\input{../tableau_colors}
+
+\usepackage{pgfplots}
+\pgfplotsset{compat=1.9}
+\begin{document}
+
+%\pgfmathdeclarefunction{gausspdf}{2}{%
+%  \pgfmathparse{1/(#2*sqrt(2*pi))*exp(-((x-#1)^2)/(2*#2^2))}%
+%}
+
+\begin{tikzpicture}[
+    declare function={gamma(\z)= (2.506628274631*sqrt(1/\z) + 0.20888568*(1/\z)^(1.5) + 0.00870357*(1/\z)^(2.5) - (174.2106599*(1/\z)^(3.5))/25920 - (715.6423511*(1/\z)^(4.5))/1244160)*exp((-ln(1/\z)-1)*\z);},
+    declare function={gammapdf(\x,\k,\theta) = \x^(\k-1)*exp(-\x/\theta) / (\theta^\k*gamma(\k));},
+    declare function={unipdf(\x,\a,\b)=(\x>\a)*(\x<\b)*1/(\b-\a);},
+    declare function={gausspdf(\x,\mu,\sigma) = 1/(sqrt(2*pi*\sigma*\sigma))*exp(-((x-\mu)^2)/(2*\sigma^2));},
+    declare function={exppdf(\x,\mu,\beta) = exp(-(\x-\mu)/\beta)/\beta);}
+  ]
+
+%% \begin{axis}[grid=both,
+%%     ymin=-5,ymax=5,
+%%     xmax=5,xmin=-5,
+%%     xticklabel=\empty, yticklabel=\empty,
+%%     minor tick num=1,
+%%     axis lines = middle,
+%%     xlabel=$x$, ylabel=$y$, label style = {at={(ticklabel cs:1.1)}}
+%%   ]
+%% 
+%legend style={at={(<x>,<y>)},anchor=<name>}
+\begin{axis}[
+    very thick,
+    xmax=5,xmin=-5,
+    axis lines=left,
+    enlargelimits=upper,
+    samples=1000,
+    %xlabel=$y$, ylabel=$\rho(y)$,
+    legend pos=north west,
+    legend style={draw=none}
+]
+
+\addplot [very thick, domain=  0:5.5, dorange] {exppdf(x,0,1)};
+\addlegendentry{\small{exponential}}; %  $(0,\infty)$
+
+\addplot [very thick, domain=-5:5.5, dblue] {unipdf(x,0,1)};
+\addlegendentry{\small{uniform}}; % $[0,1]$
+
+\addplot [smooth, domain=-5:5.5, dgreen] {gausspdf(x,0,1)};
+\addlegendentry{\small{normal}}; % $(-\infty,\infty)$
+
+\end{axis}
+\end{tikzpicture}
+\end{document}
