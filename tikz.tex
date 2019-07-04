@@ -24,3 +24,33 @@ matrix,shapes.symbols,plotmarks,decorations.markings,shadows}
 \tikzstyle{line} = [draw, very thick, color=black, -latex']
 \tikzstyle{redline} = [draw, very thick, color=red, -latex']
 \tikzstyle{dotline} = [draw,dotted, very thick, color=black!50, -latex']
+
+
+
+% https://tex.stackexchange.com/questions/72784/arrow-with-two-colors-with-tikz
+\tikzset{
+  double arrow/.style args={#1 colored by #2 and #3}{
+    -stealth,line width=#1,#2, % first arrow
+    postaction={draw,-stealth,#3,line width=(#1)/3,
+                shorten <=(#1)/3,shorten >=2*(#1)/3}, % second arrow
+  }
+}
+
+\tikzset{
+  double -latex/.style args={#1 colored by #2 and #3}{    
+    -latex,line width=#1,#2,
+    postaction={draw,-latex,#3,line width=(#1)/3,shorten <=(#1)/4,shorten >=4.5*(#1)/3},
+  },
+  double round cap-latex/.style args={#1 colored by #2 and #3}{    
+    round cap-latex,line width=#1,#2,
+    postaction={draw,round cap-latex,#3,line width=(#1)/3,shorten <=(#1)/4,shorten >=4.5*(#1)/3},
+  },
+  double round cap-stealth/.style args={#1 colored by #2 and #3}{
+    round cap-stealth,line width=#1,#2,
+    postaction={round cap-stealth,draw,,#3,line width=(#1)/3,shorten <=(#1)/3,shorten >=2*(#1)/3},
+  },
+  double -stealth/.style args={#1 colored by #2 and #3}{
+    -stealth,line width=#1,#2,
+    postaction={-stealth,draw,,#3,line width=(#1)/3,shorten <=(#1)/3,shorten >=2*(#1)/3},
+  },
+}
