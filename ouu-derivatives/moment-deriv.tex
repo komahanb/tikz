@@ -1,0 +1,67 @@
+\documentclass{standalone}
+
+\input{../tikz}
+\input{../font}
+\input{../tableau_colors}
+\newcommand{\td}[2]{\dfrac{d #1}{d #2}}
+
+% Define mean variance and standrad deviation
+\newcommand\mean[1]{\mathbb{E}\left[#1\right]}
+\newcommand\var[1]{\mathbb{V}\left[#1\right]}
+\newcommand\std[1]{\mathbb{S}\left[#1\right]}
+% Define inner product in latex
+\newcommand\inner[2]{{\Bigg\langle} #1 ~\Bigg|~ #2 {\Bigg\rangle}}
+\newcommand\sinner[2]{{\Big\langle} #1 ~\Big|~ #2 {\Big\rangle}}
+\newcommand\linner[2]{{\big\langle} #1 ~\big|~ #2 {\big\rangle}}
+\newcommand\oinner[2]{{\langle} #1 ~|~ #2 {\rangle}}
+\newcommand\otinner[3]{{\langle} #1 |#2| #3 {\rangle}}
+\newcommand\cinner[2]{{\langle} #1 | #2 {\rangle}}
+\newcommand\crinner[2]{{(} #1 | #2 {)}}
+
+\begin{document}
+\begin{tikzpicture}
+  \node [decision, very thick] (mean) at (0,0) {$\mean{F(y)}$};
+  \node [block, very thick, left of=mean, node distance=5cm] {$\sinner{1}{F(y)}_{\rho(y)}^{\cal{Y}}$ };
+  \node [block, very thick, right of=mean, node distance=5cm] {$\sinner{\psi_1^y(y)}{F(y)}_{\rho(y)}^{\cal{Y}}$ };
+  %
+  \node [decision, very thick] (meanprime) at (0,-4) {$\td{\mean{F(y(\xi))}}{\xi}$};
+  \node [block, very thick, left of=meanprime, node distance=5cm, text width=5cm] {$\sinner{1}{\td{F(y(\xi))}{\xi}}_{\rho(y)}^{\cal{Y}}$};
+  \node [block, very thick, right of=meanprime, node distance=5cm, text width=5cm] {$\sinner{\psi_1^y(y)}{\td{F(y(\xi))}{\xi}}_{\rho(y)}^{\cal{Y}} $};    
+\end{tikzpicture}
+
+\begin{tikzpicture}[auto]
+  \def\dy{2.5};
+  \node [cloud, very thick, node distance=3.5cm, text width=7em, fill=dskyblue,font=\bfseries] (1) at (0,0) {{Characterization of Input Uncertainties}};
+  \node [block, very thick, node distance=5.0cm, inner ysep=0em, text width=4cm,fill=lskyblue,font=\Large] (1A)  at  (5,0) {
+    nonprobabilistic
+  };  
+  \path [line, dashed] (1) -- (1A);
+  \node [block, very thick, node distance=5cm, inner ysep=0em, text width=4cm,fill=lskyblue,font=\Large] (1a) at (-5,0) {
+    probabilistic
+  };  
+  \path [line, dashed] (1) -- (1a);
+
+  \node [cloud, very thick, node distance=3.5cm, text width=7em, fill=dorange, font=\bfseries] (2) at (0,-\dy) {{Propagation of Input Uncertainties}};
+  \node [block, very thick, node distance=5cm, inner ysep=0em, text width=4cm,fill=lorange,font=\Large] (2A)  at  (5,-\dy) {
+    nonintrusive
+  };  
+  \path [line, dashed] (2) -- (2A);
+  \node [block, very thick, node distance=5cm, inner ysep=0em, text width=4cm,fill=lorange,font=\Large] (2a) at (-5,-\dy) {
+    intrusive
+  };  
+  \path [line, dashed] (2) -- (2a);
+  \path [line, very thick] (1) -- (2);
+
+  \node [cloud, very thick, node distance=5cm, text width=7em, fill = dgray, font=\bfseries] (3) at (0,-2*\dy) {{Mean \\ $\mean{F(y(\xi))}$}};
+  \node [block, very thick, node distance=5cm, inner ysep=0em, text width=6cm, fill=lgray,font=\large] (3A)  at  (2*3,-2*\dy) {
+    $\sinner{1}{F(y(\xi))}_{\rho(y)}^{\cal{Y}}$
+  };  
+  \path [line, dashed] (3) -- (3A);
+  \node [block, very thick, node distance=5cm, inner ysep=0em, text width=6cm, fill=lgray,font=\large] (3a) at (-2*3,-2*\dy) {
+    $F_1 = \sinner{\psi_1^y(y)}{F(y(\xi))}_{\rho(y)}^{\cal{Y}}$
+  };  
+  \path [line, dashed] (3) -- (3a);
+  \path [line] (2) -- (3);
+\end{tikzpicture}
+
+\end{document}
