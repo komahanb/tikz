@@ -1,9 +1,11 @@
-\documentclass{standalone}
-
+\documentclass[margin=1mm]{standalone}
+%
 \input{../tikz}
 \input{../font}
 \input{../tableau_colors}
-
+%
+\usepackage{bm}
+%
 % Define inner product in latex
 \newcommand\inner[2]{{\Bigg\langle} #1 ~\Bigg|~ #2 {\Bigg\rangle}}
 \newcommand\sinner[2]{{\Big\langle} #1 ~\Big|~ #2 {\Big\rangle}}
@@ -48,45 +50,213 @@
 \newcommand{\zerovec}{\bm{0}}
 
 \newcommand{\for}{\mathrm{for}}
+\renewcommand{\arg}[1]{\textcolor{dbrown}{(#1)}}
 
 \begin{document}
 \begin{tikzpicture}[auto]
-  \node [block, very thick, node distance=3.5cm, text width=18cm, text height = 3cm, fill=lgray,font=\Large] (1) at (0,0) {};
-  \node [cloud, very thick, node distance=3.5cm, text width=5.5cm, fill=gold,font=\Large] (1) at (0,0) {Design optimization of aeromechanical systems};
+  \node [block, very thick, node distance=3.5cm, text width=18cm, text height = 3cm, fill=lgray,font=\Large] (1) at (0,0) {};  
+  \node [cloud, very thick, node distance=3.5cm, text width=5.5cm, fill=gold,font=\Large] (1) at (0,0) {Gradient based optimizer};  
   \node [block, very thick, node distance=7.0cm, inner ysep=1em, text width=3cm,fill=lpink,font=\Large, left of = 1] (temporal-analysis) {
-    Transient Analysis of\\ Physics
-  };
+    Physical Analysis
+  };  
   \node [block, very thick, node distance=7.0cm, inner ysep=1em, text width=3cm,fill=lblue,font=\Large, right of = 1] (sensitivity-analysis) {
-    Transient\\ Sensitivity Analysis
-  };
-  \node [block, very thick, 
-    node distance=1.0cm, 
-    inner ysep=1em, 
-    text width=8cm,
-    fill=lorange,
-    font=\Large, below of = temporal-analysis] (static-analysis) {
-    \begin{equation}\nonumber
-      \begin{aligned}
-        &\mathrm{solve}   & : && R(\xi,u(\xi)) = 0 \\
-        &\mathrm{evaluate}& : && F(\xi,u(\xi)) \\
-      \end{aligned}
-    \end{equation}
+    Sensitivity Analysis
   };
 
+  %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+  %                    NONLINEAR ALBEBRAIC SYSTEM              %
+  %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+  
   \node [block, very thick, 
-    node distance=1.0cm, 
+    node distance=4.0cm, 
     inner ysep=1em, 
+    inner xsep=1em, 
     text width=8cm,
-    fill=lorange,
-    font=\Large, below of =sensitivity-analysis ] (sensitivity-analysis-adjoint) {
+    fill=lpink!30,
+    font=\Large, below of = 1] (static-physics) {
     \begin{equation}\nonumber
       \begin{aligned}
-        % \td{F(\xi)}{\xi} = \pd{F(\xi)}{\xi} - \pd{F(\xi)}{u} \pd{R(\xi,u(\xi))}{u}^{-1} \pd{R(\xi,u(\xi))}{\xi}
-        & \mathrm{solve}   & : && \pd{\mathcal{L}}{u}\left(\xi, u(\xi), \lambda(\xi)\right)  = 0 \\
-        &\mathrm{evaluate} & : && \td{F}{\xi} = \pd{F}{\xi} + \lambda(\xi) \pd{R}{\xi} \\
+        & \underset{u\arg{\xi}}{\text{solve}} &  &  R\arg{\xi,u(\xi)} = 0 & \\
+        & \text{evaluate}                     &  &  F\arg{\xi,u(\xi)}     & \\
       \end{aligned}
     \end{equation}
   };
+  \node [block, very thick, 
+    node distance=0.0cm, 
+    inner ysep=0em,
+    inner xsep=0em, 
+    text width=7cm,
+    fill=white,
+    font=\Large, above = -0.65cm of static-physics] (static-physics-header) {
+    \textbf{Nonlinear Algebraic System}
+  };
+
+  %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+  %       Adjoint NONLINEAR ALBEBRAIC SYSTEM                   %
+  %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+  
+  \node [block, very thick, 
+    node distance=4.5cm, 
+    inner ysep=1em,
+    inner xsep=1em, 
+    text width=15cm,
+    fill=lblue!30,
+    font=\Large, above of = 1] (static-adjoint) {
+    \begin{equation}\nonumber
+      \begin{aligned}
+        & \text{if}                               &  & {\cal{L}}\arg{\xi,u(\xi),\lambda(\xi)} = {R}\arg{\xi,u(\xi)} + \lambda(\xi) {F}\arg{\xi,u(\xi)} \\
+        & \underset{\lambda\arg\xi}{\text{solve}} &  & \pd{\mathcal{L}}{u}\arg{\xi, u(\xi), \lambda(\xi)}  = 0 & \\
+        & \text{evaluate}                         &  & \td{F}{\xi}\arg{\xi,u(\xi),\lambda(\xi)} = \pd{F}{\xi}\arg{\xi,u(\xi)} + \lambda\arg\xi \pd{R}{\xi}\arg{\xi,u(\xi)} & \\
+      \end{aligned}
+    \end{equation}
+  };
+  \node [block, very thick, 
+    node distance=0.0cm, 
+    inner ysep=0em,
+    inner xsep=0em, 
+    text width=7cm,
+    fill=white,
+    font=\Large, above = -0.65cm of static-adjoint] (static-adjoint-header) {
+    \textbf{Linear Algebraic System}
+  };
+
+  %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+  %                    NONLINEAR ODE                           %
+  %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% 
+  
+  \node [block, very thick, 
+    node distance=4.0cm, 
+    inner ysep=1em, 
+    text width=12cm,
+    fill=lpink!30,
+    font=\Large, below of = static-physics] (temporal-physics) {
+    \begin{equation}\nonumber
+      \begin{aligned}
+        & \underset{u\arg{t,\xi}, \dot{u}\arg{t,\xi}, \ddot{u}\arg{t,\xi}}{\text{solve}} &  &  R\arg{t,\xi,u(t,\xi),\dot{u}(t,\xi),\ddot{u}(t,\xi)} = 0 & \\        
+        & \text{evaluate}                     &  &   F\arg{t,\xi,u(t,\xi),\dot{u}(t,\xi),\ddot{u}(t,\xi)}   & \\
+      \end{aligned}
+    \end{equation}
+  };
+  \node [block, very thick, 
+    node distance=0.0cm, 
+    inner ysep=1em,
+    inner xsep=1em, 
+    text width=8cm,
+    fill=white,
+    font=\Large, above = -0.65cm of temporal-physics] (temporal-physics-header) {
+    \textbf{Nonlinear ODE System}
+  };
+
+  %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+  %         Adjoint LINEAR ODE                              %
+  %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% 
+  
+  \node [block, very thick, 
+    node distance=6.0cm, 
+    inner ysep=1em, 
+    text width=16cm,
+    fill=lblue!30,
+    font=\large, above of = static-adjoint] (temporal-adjoint) {
+    \begin{equation}\nonumber
+      \begin{aligned}
+        & \text{if}                               &  & {\cal{L}}
+        %\arg{t,\xi,
+        %  u(t,\xi),
+        %  \dot{u}(t,\xi), \ddot{u}(t,\xi),
+        % \lambda(t,\xi)
+        % }
+        = {R}\arg{t,\xi,u(t,\xi),\dot{u}(t,\xi), \ddot{u}(t,\xi)} + \lambda(t,\xi) {F}\arg{t,\xi,u(t,\xi),\dot{u}(t,\xi), \ddot{u}(t,\xi)} \\
+        & \underset{\lambda\arg{t,\xi}
+        %  , \dot{\lambda}\arg{t,\xi}, \ddot{\lambda}\arg{t,\xi}
+        }{\text{solve}} &  &
+        \pd{\mb{{\cal{L}}}}{{u}} - \td{}{t}  \left(\pd{{{\cal{L}}}}{{\dot{u}}} \right) + \tdt{}{t}  \left(\pd{{{\cal{L}}}}{{\ddot{u}}} \right) = 0
+        & \\
+        & \text{evaluate}                         &  & \td{F}{\xi} = \pd{F}{\xi}\arg{t,\xi,u(t,\xi),\dot{u}(t,\xi),\ddot{u}(t,\xi)} + \lambda\arg{t,\xi} \pd{R}{\xi}\arg{t,\xi,u(t,\xi),\dot{u}(t,\xi),\ddot{u}(t,\xi)} & \\
+      \end{aligned}
+      %\arg{t,\xi,u(t,\xi),\dot{u}(t,\xi),\ddot{u}(t,\xi),\lambda(t,\xi)}
+    \end{equation}
+  };
+  \node [block, very thick, 
+    node distance=0.0cm, 
+    inner ysep=1em,
+    inner xsep=1em, 
+    text width=8cm,
+    fill=white,
+    font=\Large, above = -0.65cm of temporal-adjoint] (temporal-adjoint-header) {
+    \textbf{Linear ODE System}
+  };
+
+  %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+  %                    NONLINEAR STO. ODE                      %
+  %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% 
+  
+  \node [block, very thick, 
+    node distance=5.0cm, 
+    inner ysep=1em, 
+    text width=16cm,
+    fill=lpink!30,
+    font=\Large, below of = temporal-physics] (stochastic-temporal-physics) {
+    \begin{equation}\nonumber
+      \begin{aligned}
+        & \underset{u\arg{t,y(\xi)}, \dot{u}\arg{t,y(\xi)}, \ddot{u}\arg{t,y(\xi)}}{\text{solve}} &  &  R\arg{t,y(\xi),u(t,y(\xi)),\dot{u}(t,y(\xi)),\ddot{u}(t,y(\xi))} = 0 & \\
+        & \text{evaluate}                     &  &   \mathbb{E}\left[F\arg{t,y(\xi),u(t,y(\xi)),\dot{u}(t,y(\xi)),\ddot{u}(t,y(\xi))}\right]   & \\
+        &                                     &  &   \mathbb{V}\left[F\arg{t,y(\xi),u(t,y(\xi)),\dot{u}(t,y(\xi)),\ddot{u}(t,y(\xi))}\right]   & \\
+        &                                     &  &   \mathbb{S}\,\left[F\arg{t,y(\xi),u(t,y(\xi)),\dot{u}(t,y(\xi)),\ddot{u}(t,y(\xi))}\right]   & \\        
+      \end{aligned}
+    \end{equation}
+  };
+  \node [block, very thick, 
+    node distance=0.0cm, 
+    inner ysep=1em,
+    inner xsep=1em, 
+    text width=8cm,
+    fill=white,
+    font=\Large, above = -0.65cm of stochastic-temporal-physics] (stochastic-temporal-physics-header) {
+    \textbf{Nonlinear Stochastic ODE Adjoint}
+  };
+
+  %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+  %         System Stochastic. LINEAR ODE                     %
+  %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% 
+  
+  \node [block, very thick, 
+    node distance=6.0cm, 
+    inner ysep=1em, 
+    text width=16cm,
+    fill=lblue!30,
+    font=\large, above of = temporal-adjoint] (stochastic-temporal-adjoint) {
+    \begin{equation}\nonumber
+      \begin{aligned}
+        & \text{if}                               &  & {\cal{L}}
+        %\arg{t,y(\xi),
+        %  u(t,y(\xi)),
+        %  \dot{u}(t,y(\xi)), \ddot{u}(t,y(\xi)),
+        % \lambda(t,y(\xi))
+        % }
+        = {R}\arg{t,y(\xi),u(t,y(\xi)),\dot{u}(t,y(\xi)), \ddot{u}(t,y(\xi))} + \lambda(t,y(\xi)) {F}\arg{t,y(\xi),u(t,y(\xi)),\dot{u}(t,y(\xi)), \ddot{u}(t,y(\xi))} \\
+        & \underset{\lambda\arg{t,y(\xi)}
+        %  , \dot{\lambda}\arg{t,y(\xi)}, \ddot{\lambda}\arg{t,y(\xi)}
+        }{\text{solve}} &  &
+        \pd{\mb{{\cal{L}}}}{{u}} - \td{}{t}  \left(\pd{{{\cal{L}}}}{{\dot{u}}} \right) + \tdt{}{t}  \left(\pd{{{\cal{L}}}}{{\ddot{u}}} \right) = 0
+        & \\
+        & \text{evaluate}                         &  & \mathbb{E}\left[ \td{F}{\xi} \arg{t,y(\xi),u(t,y(\xi)),\dot{u}(t,y(\xi)),\ddot{u}(t,y(\xi)), \lambda\arg{t,y(\xi)} } \right]  & \\
+        &                          &  & \mathbb{V}\left[ \td{F}{\xi} \arg{t,y(\xi),u(t,y(\xi)),\dot{u}(t,y(\xi)),\ddot{u}(t,y(\xi)), \lambda\arg{t,y(\xi)} } \right]  & \\
+        &                          &  & \mathbb{S}\left[ \td{F}{\xi} \arg{t,y(\xi),u(t,y(\xi)),\dot{u}(t,y(\xi)),\ddot{u}(t,y(\xi)), \lambda\arg{t,y(\xi)} } \right]  & \\
+      \end{aligned}
+      %\arg{t,y(\xi),u(t,y(\xi)),\dot{u}(t,y(\xi)),\ddot{u}(t,y(\xi)),\lambda(t,y(\xi))}
+    \end{equation}
+  };
+  \node [block, very thick, 
+    node distance=0.0cm, 
+    inner ysep=1em,
+    inner xsep=1em, 
+    text width=8cm,
+    fill=white,
+    font=\Large, above = -0.65cm of stochastic-temporal-adjoint] (stochastic-temporal-adjoint-header) {
+    \textbf{Linear Stochastic ODE System}
+  };
+
+  
 \end{tikzpicture}
 
 \end{document}
