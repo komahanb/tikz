@@ -1,0 +1,120 @@
+\documentclass[margin=1mm]{standalone}
+
+\input{../tikz}
+\input{../font}
+\input{../tableau_colors}
+
+\tikzstyle{block} = [rectangle, draw, fill=red!40, 
+    text width=6em, text centered, rounded corners, minimum height=3em]
+\tikzstyle{arrow} = [draw, -latex']
+
+\usepackage{pgfplots}
+\pgfplotsset{compat=1.9}
+\begin{document}
+
+\begin{tikzpicture}
+  
+  \node [cloud, very thick, 
+    node distance=4.5cm, 
+    inner ysep=1em,
+    inner xsep=1em, 
+    text width=12cm,
+    text height=5cm,
+    fill=lgray!20, %white, %lblue!30,
+    font=\Large] at (-7,0) (box) {
+  };
+  \node [block, very thick, 
+    node distance=0.0cm, 
+    inner ysep=0em,
+    inner xsep=0em, 
+    text width=7cm,
+    fill=lgreen,
+    font=\Large, above = -0.65cm of box] (box-header) {
+    \textbf{Multistep Time Marching}
+  };
+  \node [block, very thick, 
+    node distance=0.0cm, 
+    inner ysep=0em,
+    inner xsep=0em, 
+    text width=7cm,
+    fill=lblue,
+    font=\Large, below = -0.65cm of box] (box-footer) {
+    \textbf{Multistage  Time Marching}
+  };
+
+
+  \node [circ, very thick, node distance=7.0cm, 
+    inner xsep=0em, inner ysep=0em, text
+    width=1.5cm,fill=lorange,font=\huge] at (0,0) (k) {$t_k$};
+  \node [circ, very thick, node distance=7.0cm,
+    inner xsep=0em, inner ysep=0em, text
+    width=1.5cm,fill=lorange,font=\huge, left of = k] (k-1) {$t_{k-1}$};
+  \node [circ, very thick, node distance=7.0cm,
+    inner xsep=0em, inner ysep=0em, text
+    width=1.5cm,fill=lorange,font=\huge, left of = k-1] (k-2) {$t_{k-2}$};
+
+%  \node [circ, very thick, node distance=7.0cm,
+%    inner xsep=0em, inner ysep=0em, text
+%    width=1.5cm,fill=lorange,font=\huge, left of = k-2] (k-3) {$t_{k-3}$};
+
+%  \draw [<->, very thick] (k-1) -- node [below] {\huge{$h$}} (k);
+%  \draw [<->, very thick] (k-2) -- node [below] {\huge{$h$}} (k-1);
+%  \draw [<->, very thick] (k-3) -- node [below] {\huge{$h$}} (k-2);
+
+  \draw[double arrow=5pt colored by black and lgreen,rounded corners]
+  (k-1) to [out=30,in=135] (k);
+  \draw[double arrow=5pt colored by black and lgreen,rounded corners]
+  (k-2) to [out=30,in=135] (k);
+%  \draw[double arrow=5pt colored by black and lgreen,rounded corners]
+%  (k-3) to [out=45,in=120] (k);
+
+  \node [circ, very thick, node distance=3.0cm, 
+    inner xsep=0em, inner ysep=0em, text
+    width=1.0cm,fill=lyellow,left = 1cm of k, font=\large] (kj) {$\tau_j$};
+  \node [circ, very thick, node distance=3.0cm, 
+    inner xsep=0em, inner ysep=0em, text
+    width=1.0cm,fill=lyellow,left = 1cm of kj, font=\large] (kj-1) {$\tau_{j-1}$};
+
+  % interstage
+  \draw[double arrow=5pt colored by black and lblue,rounded corners]
+  (k-1) to [out=-45,in=-120] (kj);
+  \draw[double arrow=5pt colored by black and lblue,rounded corners]
+  (k-1) to [out=-45,in=-120] (kj-1);
+  \draw[double arrow=5pt colored by black and lblue,rounded corners]
+  (kj-1) to [out=-60,in=-120] (kj);
+
+  %step link
+  \draw[double arrow=5pt colored by black and lblue,rounded corners]
+  (k-1) to [out=-45,in=-120] (k);
+  \draw[double arrow=5pt colored by black and lblue,rounded corners]
+  (kj) to [out=-60,in=-120] (k);
+  \draw[double arrow=5pt colored by black and lblue,rounded corners]
+  (kj-1) to [out=-60,in=-120] (k);
+
+  \node [circ, very thick, node distance=3.0cm, 
+    inner xsep=0em, inner ysep=0em, text
+    width=1.0cm,fill=lyellow,left = 1cm of k-1, font=\large] (k-1j) {$\tau_j$};
+  \node [circ, very thick, node distance=3.0cm, 
+    inner xsep=0em, inner ysep=0em, text
+    width=1.0cm,fill=lyellow,left = 1cm of k-1j, font=\large] (k-1j-1) {$\tau_{j-1}$};
+
+  % interstage
+  \draw[double arrow=5pt colored by black and lblue,rounded corners]
+  (k-2) to [out=-45,in=-120] (k-1j);
+  \draw[double arrow=5pt colored by black and lblue,rounded corners]
+  (k-2) to [out=-45,in=-120] (k-1j-1);
+  \draw[double arrow=5pt colored by black and lblue,rounded corners]
+  (k-1j-1) to [out=-60,in=-120] (k-1j);
+
+  %step link
+  \draw[double arrow=5pt colored by black and lblue,rounded corners]
+  (k-2) to [out=-45,in=-120] (k-1);
+  \draw[double arrow=5pt colored by black and lblue,rounded corners]
+  (k-1j) to [out=-60,in=-120] (k-1);
+  \draw[double arrow=5pt colored by black and lblue,rounded corners]
+  (k-1j-1) to [out=-60,in=-120] (k-1);
+
+
+\end{tikzpicture}
+
+\end{document}
