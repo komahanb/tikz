@@ -1,0 +1,58 @@
+\documentclass[margin=1mm]{standalone}
+
+\input{../tikz}
+\input{../font}
+\input{../tableau_colors}
+
+\begin{document}
+\begin{tikzpicture}[auto]
+  \node [block, very thick, node distance=3.5cm, text width=21cm, text height = 3.5cm, fill=lgray,font=\Large] (origin) at (0,0) 
+        {};
+  \node [block, very thick, node distance=2.5cm, inner ysep=1em, text width=12cm, fill=white,font=\huge\bfseries, above = -0.75cm of origin] (det-opt) {
+          Deterministic Optimization
+  };
+  \node [block, very thick, node distance=3.5cm, inner ysep=1em, text width=3cm, fill=white, font=\Large, below = 0.3cm of det-opt] (dv)  {$\xi$};
+  \node [block, very thick, node distance=7.0cm, inner ysep=1em, text width=4cm,fill=white,font=\Large, left of = dv] (con) {
+    $G(\xi)$
+  };
+  \node [block, very thick, node distance=7.0cm, inner ysep=1em, text width=4cm,fill=white,font=\Large, right of = dv] (obj) {
+    $F(\xi)$
+  };
+  \draw[double arrow=5pt colored by black and white]
+  (dv) -- (con);
+  \draw[double arrow=5pt colored by black and white]
+  (dv) -- (obj);
+
+  %%%%%%%%%%%%%%%%%%%%%%%%%%% OUU %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+  \node [block, very thick, node distance=3.5cm, text width=21cm, text height = 3.5cm, fill=lgray,font=\Large] (sorigin) at (0,-5) 
+        {};
+  \node [block, very thick, node distance=2.5cm, inner ysep=1em, text width=12cm, fill=white,font=\huge\bfseries, below = -0.75cm of sorigin] (sto-opt) {
+        Optimization Under Uncertainty
+  };
+
+  %\node [cloud, very thick, node distance=3.5cm, text width=3cm, fill=white, font=\huge, above = 0.5cm of sto-opt] (sdv) {\\ uncertainties };
+  \node [block, very thick, node distance=7.0cm, inner ysep=1em, text width=3.0cm, font=\Large, fill=white, above = 0.5cm of sto-opt] (sdv) {
+    $\xi(y)$
+  };
+  \node [block, very thick, node distance=7.0cm, inner ysep=1em, text width=6cm,fill=white,font=\Large, left of = sdv] (scon) {
+    %$$\mathbb{P}[G(\xi) \le 0] \le 0$$  
+    $\mathbb{E}[G(\xi)] + \beta \cdot \mathbb{S}[G(\xi)]$
+  };
+  \node [block, very thick, node distance=7.0cm, inner ysep=1em, text width=6cm,fill=white,font=\Large, right of = sdv] (sobj) {
+    $\alpha_1 \cdot \mathbb{E}[F(\xi)] + \alpha_2 \cdot \mathbb{S}[F(\xi)]$
+  };
+  \draw[double arrow=10pt colored by black and red]
+  (sdv) -- (dv);
+  \draw[double arrow=10pt colored by black and green]
+  (obj) -- (sobj);
+  \draw[double arrow=10pt colored by black and dblue]
+  (con) -- (scon);
+
+%  \draw[double arrow=5pt colored by black and white]
+%  (sdv) -- (scon);
+%  \draw[double arrow=5pt colored by black and white]
+%  (sdv) -- (sobj);
+\end{tikzpicture}
+
+\end{document}
