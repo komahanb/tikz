@@ -57,6 +57,7 @@
 \begin{tikzpicture}
 
 %  \node [block, very thick, node distance=3.5cm, text width=18cm, text height = 15cm, fill=lgray,font=\Large] (1) at (0,0) {};  
+  \node [block, very thick, node distance=3.5cm, text width=17cm, text height = 15cm, fill=lpink,font=\Large] (1) at (0,-5.25) {};  
 
   %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
   %                    NONLINEAR ALBEBRAIC SYSTEM              %
@@ -68,7 +69,7 @@
     inner xsep=1em, 
     text width=8cm,
     fill=white!30,
-    font=\Large] at (0,5.25) (static-physics) {
+    font=\Large] at (0,0) (static-physics) {
     \begin{equation}\nonumber
       \begin{aligned}
         & \underset{u\arg{\xi}}{\text{solve}} &  &  R\arg{\xi,u(\xi)} = 0 & \\
@@ -107,7 +108,7 @@
     node distance=0.0cm, 
     inner ysep=1em,
     inner xsep=1em, 
-    text width=8cm,
+    text width=6cm,
     fill=white,
     font=\Large, draw = dred,  above = -0.65cm of temporal-physics] (temporal-physics-header) {
     \textbf{Nonlinear ODE System}
