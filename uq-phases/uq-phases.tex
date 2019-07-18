@@ -39,6 +39,17 @@
   };  
   \path [line, dashed] (3) -- (3a);
   \path [line] (2) -- (3);
+
+  % connect probabilistics and nonprobabilistics
+  \draw[double arrow=8pt colored by black and white,rounded corners]
+  (1A) to [out=0,in=0] (3A);
+
+  \draw[double arrow=8pt colored by black and white,rounded corners]
+  (1a) to [out=180,in=180] (3a);
+
+%  \draw[double arrow=7pt colored by black and lime,rounded corners]
+%  (uq-ouu) -| (temporal-analysis);
+
 \end{tikzpicture}
 
 \end{document}

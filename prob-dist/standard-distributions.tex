@@ -31,11 +31,11 @@
 %legend style={at={(<x>,<y>)},anchor=<name>}
 \begin{axis}[
     very thick,
-    xmax=5,xmin=-5,
-    axis lines=left,
-    enlargelimits=upper,
+    %xmax=5,xmin=-5,
+    %axis lines=left,
+    %enlargelimits=upper,
     samples=1000,
-    %xlabel=$y$, ylabel=$\rho(y)$,
+    xlabel=domain of variable, ylabel=probability density,
     legend pos=north west,
     legend style={draw=none}
 ]
@@ -49,6 +49,9 @@
 \addplot [smooth, domain=-5:5.5, dgreen] {gausspdf(x,0,1)};
 \addlegendentry{\small{normal}}; % $(-\infty,\infty)$
 
+%\draw [<-] (axis cs:801.3,6066)-- +(10pt,10pt) node[right] {here};
+
 \end{axis}
 \end{tikzpicture}
+
 \end{document}

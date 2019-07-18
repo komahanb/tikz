@@ -33,14 +33,15 @@
 
   %\node [cloud, very thick, node distance=3.5cm, text width=3cm, fill=white, font=\huge, above = 0.5cm of sto-opt] (sdv) {\\ uncertainties };
   \node [block, very thick, node distance=7.0cm, inner ysep=1em, text width=3.0cm, font=\Large, fill=white, above = 0.5cm of sto-opt] (sdv) {
-    $\xi(y)$
+    $y(\xi)$
   };
   \node [block, very thick, node distance=7.0cm, inner ysep=1em, text width=6cm,fill=white,font=\Large, left of = sdv] (scon) {
-    %$$\mathbb{P}[G(\xi) \le 0] \le 0$$  
+%    $\mathbb{P}[G(\xi) \le 0] \le 0$
+%    \\
     $\mathbb{E}[G(\xi)] + \beta \cdot \mathbb{S}[G(\xi)]$
   };
   \node [block, very thick, node distance=7.0cm, inner ysep=1em, text width=6cm,fill=white,font=\Large, right of = sdv] (sobj) {
-    $\alpha_1 \cdot \mathbb{E}[F(\xi)] + \alpha_2 \cdot \mathbb{S}[F(\xi)]$
+    $(1-\alpha) \mathbb{E}[F(\xi)] + \alpha \cdot \mathbb{S}[F(\xi)]$
   };
   \draw[double arrow=10pt colored by black and red]
   (sdv) -- (dv);

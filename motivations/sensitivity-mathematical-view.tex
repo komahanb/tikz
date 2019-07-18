@@ -51,12 +51,14 @@
 
 \newcommand{\for}{\mathrm{for}}
 \renewcommand{\arg}[1]{\textcolor{black!70}{(#1)}}
+\newcommand{\sarg}[1]{\textcolor{black!70}{#1}}
+\newcommand{\carg}[1]{\textcolor{black!70}{#1}}
 
 \begin{document}
 
 \begin{tikzpicture}
 
-  \node [block, very thick, node distance=3.5cm, text width=20cm, text height = 16.5cm, fill=lgray,font=\Large] (1) at (0,0) {};  
+%  \node [block, very thick, node distance=3.5cm, text width=20cm, text height = 20cm, fill=dblue!30,font=\Large] (1) at (0,0) {};  
 
   %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
   %                    NONLINEAR ALBEBRAIC SYSTEM              %
@@ -66,14 +68,15 @@
     node distance=5cm, 
     inner ysep=1em, 
     inner xsep=1em, 
-    text width=14cm,
+    text width=10cm,
     fill=white!30,
-    font=\large] at (0,5.37) (static-physics) {
+    font=\Large] at (0,5.37) (static-physics) {
     \begin{equation}\nonumber
       \begin{aligned}
-        & \text{if}                               &  & {\cal{L}}\arg{\xi,u(\xi),\lambda(\xi)} = {R}\arg{\xi,u(\xi)} + \lambda(\xi) {F}\arg{\xi,u(\xi)} \\
-        & \underset{\lambda\arg\xi}{\text{solve}} &  & \pd{\mathcal{L}}{u}\arg{\xi, u(\xi), \lambda(\xi)}  = 0 & \\
-        & \text{evaluate}                         &  & \td{F}{\xi}\arg{\xi,u(\xi),\lambda(\xi)} = \pd{F}{\xi}\arg{\xi,u(\xi)} + \lambda\arg\xi \pd{R}{\xi}\arg{\xi,u(\xi)} & \\
+        & \text{define}                               &  & {\cal{L}}\arg{\carg{\circ},\lambda(\xi)} = {R}\arg{\carg{\circ}} + \lambda(\xi) {F}\arg{\carg{\circ}} & \\
+        & \text{where}                                &  & \carg{\circ} = \sarg{\xi, u(\xi)}  & \\
+        & \underset{\lambda\arg\xi}{\text{solve}} &  & \pd{\mathcal{L}\arg{\carg{\circ},\lambda(\xi)}}{u}  = 0 & \\
+        & \text{evaluate}                         &  & \td{F\arg{\carg{\circ},\lambda(\xi)}}{\xi}  = \pd{F\arg{\carg{\circ}}}{\xi} + \lambda\arg\xi \pd{R\arg{\carg{\circ}}}{\xi} & \\
       \end{aligned}
     \end{equation}
   };
@@ -94,26 +97,16 @@
   \node [block, very thick, 
     node distance=4.75cm, 
     inner ysep=1em, 
-    text width=16.5cm,
+    text width=18cm,
     fill=white!30,
-    font=\large, below = 2cm of static-physics] (temporal-physics) {
+    font=\Large, draw =red, below = 2cm of static-physics] (temporal-physics) {
     \begin{equation}\nonumber
       \begin{aligned}
-        & \text{if}                               &  & {\cal{L}}
-        %\arg{t,\xi,
-        %  u(t,\xi),
-        %  \dot{u}(t,\xi), \ddot{u}(t,\xi),
-        % \lambda(t,\xi)
-        % }
-        = {R}\arg{t,\xi,u(t,\xi),\dot{u}(t,\xi), \ddot{u}(t,\xi)} + \lambda(t,\xi) {F}\arg{t,\xi,u(t,\xi),\dot{u}(t,\xi), \ddot{u}(t,\xi)} \\
-        & \underset{\lambda\arg{t,\xi}
-        %  , \dot{\lambda}\arg{t,\xi}, \ddot{\lambda}\arg{t,\xi}
-        }{\text{solve}} &  &
-        \pd{\mb{{\cal{L}}}}{{u}} - \td{}{t}  \left(\pd{{{\cal{L}}}}{{\dot{u}}} \right) + \tdt{}{t}  \left(\pd{{{\cal{L}}}}{{\ddot{u}}} \right) = 0
-        & \\
-        & \text{evaluate}                         &  & \td{F}{\xi} = \pd{F}{\xi}\arg{t,\xi,u(t,\xi),\dot{u}(t,\xi),\ddot{u}(t,\xi)} + \lambda\arg{t,\xi} \pd{R}{\xi}\arg{t,\xi,u(t,\xi),\dot{u}(t,\xi),\ddot{u}(t,\xi)} & \\
+        & \text{define}                               &  & {\cal{L}}\arg{\carg{\circ},\lambda(t,\xi)} = {R}\arg{\carg{\circ}} + \lambda(t,\xi) {F}\arg{\carg{\circ}} & \\
+        & \text{where}                                &  & \carg{\circ} =   \sarg{t, \xi, u(t, \xi), \dot{u}(t,\xi), \ddot{u}(t,\xi)} & \\
+        & \underset{\lambda\arg{t,\xi}}{\text{solve}} &  & \pd{{\cal{L}}\arg{\carg{\circ},\lambda(t,\xi)}}{{u}} - \td{}{t}  \left(\pd{{{\cal{L}}\arg{\carg{\circ},\lambda(t,\xi)}}}{{\dot{u}}} \right) + \tdt{}{t}  \left(\pd{{{\cal{L}}\arg{\carg{\circ},\lambda(t,\xi)}}}{{\ddot{u}}} \right) = 0 & \\
+        & \text{evaluate}                         &  & \td{F\arg{\carg{\circ},\lambda(t,\xi)}}{\xi}  = \pd{F\arg{\carg{\circ}}}{\xi} + \lambda\arg{t,\xi} \pd{R\arg{\carg{\circ}}}{\xi} & \\
       \end{aligned}
-      %\arg{t,\xi,u(t,\xi),\dot{u}(t,\xi),\ddot{u}(t,\xi),\lambda(t,\xi)}
     \end{equation}
   };
   \node [block, very thick, 
@@ -122,6 +115,7 @@
     inner xsep=1em, 
     text width=8cm,
     fill=white,
+    draw =red, 
     font=\Large, above = -0.65cm of temporal-physics] (temporal-physics-header) {
     \textbf{Linear ODE System}
   };
@@ -135,24 +129,16 @@
     inner ysep=1em, 
     text width=19.5cm,
     fill=white!30,
+    draw =red, 
     font=\Large, below = 2cm of temporal-physics] (stochastic-temporal-physics) {
     \begin{equation}\nonumber
       \begin{aligned}
-        & \text{if}                               &  & {\cal{L}}
-        %\arg{t,y(\xi),
-        %  u(t,y(\xi)),
-        %  \dot{u}(t,y(\xi)), \ddot{u}(t,y(\xi)),
-        % \lambda(t,y(\xi))
-        % }
-        = {R}\arg{t,y(\xi),u(t,y(\xi)),\dot{u}(t,y(\xi)), \ddot{u}(t,y(\xi))} + \lambda(t,y(\xi)) {F}\arg{t,y(\xi),u(t,y(\xi)),\dot{u}(t,y(\xi)), \ddot{u}(t,y(\xi))} \\
-        & \underset{\lambda\arg{t,y(\xi)}
-        %  , \dot{\lambda}\arg{t,y(\xi)}, \ddot{\lambda}\arg{t,y(\xi)}
-        }{\text{solve}} &  &
-        \pd{\mb{{\cal{L}}}}{{u}} - \td{}{t}  \left(\pd{{{\cal{L}}}}{{\dot{u}}} \right) + \tdt{}{t}  \left(\pd{{{\cal{L}}}}{{\ddot{u}}} \right) = 0
-        & \\
-        & \text{evaluate}          &  & \td{}{\xi} \mathbb{E}\left[ F \arg{t,y(\xi),u(t,y(\xi)),\dot{u}(t,y(\xi)),\ddot{u}(t,y(\xi)), \lambda\arg{t,y(\xi)} } \right]  & \\
-        &                          &  & \td{}{\xi} \mathbb{V}\left[ F \arg{t,y(\xi),u(t,y(\xi)),\dot{u}(t,y(\xi)),\ddot{u}(t,y(\xi)), \lambda\arg{t,y(\xi)} } \right]  & \\
-        &                          &  & \td{}{\xi} \mathbb{S}\left[ F \arg{t,y(\xi),u(t,y(\xi)),\dot{u}(t,y(\xi)),\ddot{u}(t,y(\xi)), \lambda\arg{t,y(\xi)} } \right]  & \\
+        & \text{define}                                  &  & {\cal{L}}\arg{\carg{\circ},\lambda(t,y(\xi))} = {R}\arg{\carg{\circ}} + \lambda(t,y(\xi)) {F}\arg{\carg{\circ}} & \\
+        & \text{where}                                &  & \carg{\circ} =   \sarg{t, y(\xi), u(t, y(\xi)), \dot{u}(t,y(\xi)), \ddot{u}(t,y(\xi))} & \\
+        & \underset{\lambda\arg{t,y(\xi)}}{\text{solve}} &  & \pd{{\cal{L}}\arg{\carg{\circ},\lambda(t,y(\xi))}}{{u}} - \td{}{t}  \left(\pd{{{\cal{L}}\arg{\carg{\circ},\lambda(t,y(\xi))}}}{{\dot{u}}} \right) + \tdt{}{t}  \left(\pd{{{\cal{L}}\arg{\carg{\circ},\lambda(t,y(\xi))}}}{{\ddot{u}}} \right) = 0 & \\
+        & \text{evaluate}          &  & \td{\mathbb{E}\left[ F\arg{\circ,\lambda(t,y(\xi))} \right] }{\xi}, \td{ \mathbb{V}\left[ F\arg{\circ,\lambda(t,y(\xi))} \right] }{\xi} ,\td{ \mathbb{S}\left[ F\arg{\circ,\lambda(t,y(\xi))} \right] }{\xi}   & \\
+%        &                          &  & \td{}{\xi} \mathbb{V}\left[ F\arg{t,y(\xi)}  \right]  & \\
+%        &                          &  & \td{}{\xi} \mathbb{S}\left[ F\arg{t,y(\xi)}  \right]  & \\
       \end{aligned}
       %\arg{t,y(\xi),u(t,y(\xi)),\dot{u}(t,y(\xi)),\ddot{u}(t,y(\xi)),\lambda(t,y(\xi))}
     \end{equation}
@@ -163,6 +149,7 @@
     inner xsep=1em, 
     text width=8cm,
     fill=white,
+    draw =red, 
     font=\Large, above = -0.65cm of stochastic-temporal-physics] (stochastic-temporal-physics-header) {
     \textbf{Linear Stochastic ODE System}
   };

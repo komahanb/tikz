@@ -9,11 +9,11 @@
   \def\dy{2.5};
   \node [cloud, very thick, node distance=3.5cm, text width=7em, fill=dpurple,font=\bfseries] (1) at (0,0) {{Optimization Under\\ Uncertainty}};
   \node [block, very thick, node distance=5.0cm, inner ysep=0em, text width=4cm,fill=lpurple,font=\Large] (1A)  at  (5,0) {
-    robustness-based
+    robustness \\ (objective)
   };  
   \path [line, dashed] (1) -- (1A);
   \node [block, very thick, node distance=5cm, inner ysep=0em, text width=4cm,fill=lpurple,font=\Large] (1a) at (-5,0) {
-    reliability-based
+    reliability \\ (constraints)
   };  
   \path [line, dashed] (1) -- (1a);
 \end{tikzpicture}

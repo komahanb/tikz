@@ -56,7 +56,7 @@
 
 \begin{tikzpicture}
 
-  \node [block, very thick, node distance=3.5cm, text width=18cm, text height = 15cm, fill=lgray,font=\Large] (1) at (0,0) {};  
+%  \node [block, very thick, node distance=3.5cm, text width=18cm, text height = 15cm, fill=lgray,font=\Large] (1) at (0,0) {};  
 
   %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
   %                    NONLINEAR ALBEBRAIC SYSTEM              %
@@ -95,7 +95,7 @@
     inner ysep=1em, 
     text width=12cm,
     fill=white!30,
-    font=\Large, below of = static-physics] (temporal-physics) {
+    font=\Large, draw = dred, below of = static-physics] (temporal-physics) {
     \begin{equation}\nonumber
       \begin{aligned}
         & \underset{u\arg{t,\xi}, \dot{u}\arg{t,\xi}, \ddot{u}\arg{t,\xi}}{\text{solve}} &  &  R\arg{t,\xi,u(t,\xi),\dot{u}(t,\xi),\ddot{u}(t,\xi)} = 0 & \\        
@@ -109,7 +109,7 @@
     inner xsep=1em, 
     text width=8cm,
     fill=white,
-    font=\Large, above = -0.65cm of temporal-physics] (temporal-physics-header) {
+    font=\Large, draw = dred,  above = -0.65cm of temporal-physics] (temporal-physics-header) {
     \textbf{Nonlinear ODE System}
   };
 
@@ -122,7 +122,7 @@
     inner ysep=1em, 
     text width=16cm,
     fill=white!30,
-    font=\Large, below of = temporal-physics] (stochastic-temporal-physics) {
+    font=\Large, draw = dred, below of = temporal-physics] (stochastic-temporal-physics) {
     \begin{equation}\nonumber
       \begin{aligned}
         & \underset{u\arg{t,y(\xi)}, \dot{u}\arg{t,y(\xi)}, \ddot{u}\arg{t,y(\xi)}}{\text{solve}} &  &  R\arg{t,y(\xi),u(t,y(\xi)),\dot{u}(t,y(\xi)),\ddot{u}(t,y(\xi))} = 0 & \\
@@ -138,7 +138,7 @@
     inner xsep=1em, 
     text width=8cm,
     fill=white,
-    font=\Large, above = -0.65cm of stochastic-temporal-physics] (stochastic-temporal-physics-header) {
+    font=\Large, draw = dred, above = -0.65cm of stochastic-temporal-physics] (stochastic-temporal-physics-header) {
     \textbf{Nonlinear Stochastic ODE System}
   };
 
