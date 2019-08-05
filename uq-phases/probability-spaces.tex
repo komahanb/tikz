@@ -1,26 +1,36 @@
 \documentclass[margin=1mm]{standalone}
 
+\usepackage[dvipsnames]{xcolor}
+\usepackage{adjustbox}
+
 \input{../tikz}
 \input{../font}
 \input{../tableau_colors}
 
+
+
 \begin{document}
-
+%  left and right, below, and top.
+\trimbox{2cm 0cm 2cm 2.5cm}{ 
 \begin{tikzpicture}[auto]
-  \node [block, very thick, node distance=5cm, text width=5cm, text height = 0.7cm,  centered, fill=white, draw=white, font=\bfseries\Large] (x) at (-0.3,0) {\smallskip Transforming \\Random Spaces\\\smallskip\smallskip\smallskip};  
-  \node [circ, very thick, node distance=5cm, text width=3cm, inner xsep= 0, inner ysep=0, text height = 1cm, text centered, fill=lyellow,font=\bfseries\Large] (y) at (0+90:6) {General \\Random \\ $\mathbf{y}$};
-  \node [circ, very thick, node distance=5cm, text width=3cm, inner xsep= 0, inner ysep=0, text height = 1cm, text centered, fill=lgreen,font=\bfseries\Large] (x) at (120*1+90:6) {Arbitrary Random \\ $\mathbf{{x}}$};
-  \node [circ, very thick, node distance=5cm, text width=3cm, inner xsep= 0, inner ysep=0, text height = 1cm, text centered, fill=lblue,font=\bfseries\Large] (z) at (120*2+90:6) {Standard Random \\ $\mathbf{z}$};
+  \node[poly, very thick, fill=lyellow, scale=17, fill opacity = 1, rounded corners = 5cm, font=\bfseries\Large]{};
+  \node[poly, very thick, fill=white, scale=5 , fill opacity = 1, text opacity = 0.0, rounded corners = 1cm, font=\bfseries\Large]{};
+  \node [block, very thick, node distance=5cm, text width=5cm, text height = 0.7cm,  rounded corners,  centered, fill=none, draw=none, font=\bfseries\Large] (x) at (-0.,0) {Transforming \\Random Spaces\\\smallskip\smallskip\smallskip};
 
-  \node [block, very thick, node distance=2.75cm, text width=5cm, text height = 0.7cm, centered, text = red, fill=white, draw=white, font=\bfseries\Large, below of = z] { 
+  \node [circ, very thick, node distance=5cm, text width=3cm, inner xsep= 0, inner ysep=0, text height = 1cm, text centered, fill=Rhodamine!50,font=\bfseries\Large] (y) at (0+90:6) {General \\Random \\ $\mathbf{y}$};
+  \node [circ, very thick, node distance=5cm, text width=3cm, inner xsep= 0, inner ysep=0, text height = 1cm, text centered, fill=LimeGreen!50,font=\bfseries\Large] (x) at (120*1+90:6) {Arbitrary Random \\ $\mathbf{{x}}$};
+  \node [circ, very thick, node distance=5cm, text width=3cm, inner xsep= 0, inner ysep=0, text height = 1cm, text centered, fill=BlueGreen!50,font=\bfseries\Large] (z) at (120*2+90:6) {Standard Random \\ $\mathbf{z}$};
+
+  \node [node distance=2.5cm, text width=8cm, text height = 0.7cm, text = red, font=\bfseries\Large, below right=.5cm and -6cm of z] { 
     orthonormal probabilistic space
   };
 
-  \node [block, very thick, node distance=2.5cm, text width=5cm, text height = 0.7cm, centered, text = red, fill=white, draw=white, font=\bfseries\Large, below of = x] { 
+
+  \node [node distance=2.5cm, text width=8cm, text height = 0.7cm, text = red, font=\bfseries\Large, below right=.5cm and -3.5cm of x] { 
     quadrature space
   };
 
-  \node [block, very thick, node distance=2.5cm, text width=5cm, text height = 0.7cm, centered, text = red, fill=white, draw=white, font=\bfseries\Large, above of = y] { 
+  \node [node distance=2.5cm, text width=8cm, text height = 0.7cm, text = red, font=\bfseries\Large, above right=1cm and -3.0cm of y] { 
     physical space
   };
 
@@ -29,6 +39,7 @@
   \draw[double arrow=10pt colored by black and black, <->] (x) -- (z);
 
 \end{tikzpicture}
+}
 
 \end{document}
 
