@@ -4,6 +4,10 @@
 \input{../font}
 \input{../tableau_colors}
 
+%\pgfdeclarelayer{background}
+%\pgfdeclarelayer{foreground}
+%\pgfsetlayers{background,foreground}
+
 \begin{document}
 
 \begin{tikzpicture}
@@ -12,36 +16,41 @@
   %
   \def\radiusi{1.25cm}
   \def\radiusj{3.5cm}
-  \def\radiusk{6.5cm}
+  \def\radiusk{6.25cm}
   \def\radiusl{8.5cm}
   %
-  \def\margini{30} % margin in angles, depends on the radius
-  \def\marginj{30}  % margin in angles, depends on the radius
-  \def\margink{15}  % margin in angles, depends on the radius
-  \def\marginl{5}  % margin in angles, depends on the radius
+  \def\margini{25} % margin in angles, depends on the radius
+  \def\marginj{25}  % margin in angles, depends on the radius
+  \def\margink{12}  % margin in angles, depends on the radius
+  \def\marginl{3}  % margin in angles, depends on the radius
   %
+
+  \node[draw, circ, very thick, fill=black , fill opacity = 1, minimum size=2*\radiusl] at (0,0) {};
+  \node[draw, circ, very thick, fill=dolive, fill opacity = 1, minimum size=2*\radiusk] at (0,0) {};
+  \node[draw, circ, very thick, fill=black , fill opacity = 1, minimum size=2*\radiusj] at (0,0) {};
+  \node[draw, circ, very thick, fill=dolive, fill opacity = 1, minimum size=2*\radiusi] at (0,0) {};
+  
   \foreach \s in {1,...,\n}{
-    \node[draw, circ, very thick, minimum size=1cm] at ({360/\n * (\s - 1)} : \radiusi){$y_\s$};
-    \draw[-, >=latex, very thick] ({360/\n * (\s - 1) + \margini} : \radiusi) 
-    arc ({360/\n * (\s - 1) + \margini} : {360/\n * (\s)-\margini} : \radiusi);
+    \node[draw, circ, very thick, fill=gray!25, minimum size=1cm] at ({360/\n * (\s - 1)} : \radiusi){$y_\s$};
   }
   %
   \foreach \s in {1,...,\n}{
-    \node[draw, circ, very thick, minimum size=2cm] at ({360/\n * (\s - 1)} : \radiusj){$R(y_\s,u(y_\s))=0$};
-    \draw[-, very thick, >=latex] ({360/\n * (\s - 1) + \marginj} : \radiusj) 
-    arc ({360/\n * (\s - 1) + \marginj} : {360/\n * (\s)-\marginj} : \radiusj);
+    \coordinate (a) at ({360/\n * (\s - 1)} : \radiusj);
+    \node[draw, circ, very thick, fill=gray!25,  minimum size=1cm, align=center] at (a) {$R\left(y_\s,u(y_\s)\right)$\\$=$\\$0$};
+  } 
+  %
+  \foreach \s in {1,...,\n}{
+    \node[draw, circ, very thick, fill=gray!25, minimum size=1cm,align = center] at ({360/\n * (\s - 1)} : \radiusk){
+      $F(y_\s,u(y_\s))$
+      \\
+      $\frac{dF}{d\xi}(y_\s,u(y_\s))$
+    };
   }
   %
   \foreach \s in {1,...,\n}{
-    \node[draw, circ, very thick, minimum size=2cm] at ({360/\n * (\s - 1)} : \radiusk){$F(y_\s,u(y_\s))$};
-    \draw[-, very thick, >=latex] ({360/\n * (\s - 1) + \margink} : \radiusk) 
-    arc ({360/\n * (\s - 1) + \margink} : {360/\n * (\s)-\margink} : \radiusk);
-  }
-  %
-  \foreach \s in {1,...,\n}{
-    \node[draw, very thick, circ] at ({360/\n * (\s - 1)} : \radiusl){$\alpha_\s$};
-    \draw[-, very thick, >=latex] ({360/\n * (\s - 1) + \marginl} : \radiusl) 
-    arc ({360/\n * (\s - 1) + \marginl} : {360/\n * (\s)-\marginl} : \radiusl);
+    \node[draw, circ, very thick, fill=gray!25] at ({360/\n * (\s - 1)} : \radiusl){$\alpha_\s$};
+%    \draw[-, very thick, >=latex] ({360/\n * (\s - 1) + \marginl} : \radiusl) 
+%    arc ({360/\n * (\s - 1) + \marginl} : {360/\n * (\s)-\marginl} : \radiusl);
   }
 \end{tikzpicture}
 
