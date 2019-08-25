@@ -1,0 +1,34 @@
+\documentclass[margin=1mm]{standalone}
+
+\input{../tikz}
+\input{../font}
+\input{../tableau_colors}
+
+\begin{document}
+\begin{tikzpicture}
+  \def\n{5}
+  \def\radiusl{2.5cm}
+  \def\radiusk{4.0cm}
+  \def\radiusj{7.25cm}
+  \def\radiusi{9.5cm}
+  \node[draw, circ, very thick, fill=black , fill opacity = 1, minimum size=2*\radiusi] at (0,0) {};
+  \node[draw, circ, very thick, fill=dred  , fill opacity = 1, minimum size=1.45*\radiusj] at (0,0) {};
+  \node[draw, circ, very thick, fill=black , fill opacity = 1, minimum size=0.45*\radiusk] at (0,0) {};
+  \node[draw, circ, very thick, fill=dred  , fill opacity = 1, minimum size=\radiusl,font=\bfseries, align=center] at (0,0) {Probabilistic \\ Moments};
+
+  \foreach \s in {1,...,\n}{
+    \coordinate (a) at ({360/\n * (\s - 1)} : \radiusj);
+    \node[draw, circ, very thick, fill=white!25,  minimum size=1cm, anchor=center] at (a) {
+      \includegraphics[width=2cm]{projection-residual.pdf}
+      % \includeprojection-residual.pdf
+      %$ \left\langle R\left(y,u(y) \right) \Big| \widehat{\psi_\s}(y) \right\rangle $ \\ $=$ \\ $0$
+    };
+  } 
+  %
+  \foreach \s in {1,...,\n}{
+    \node[draw, circ, very thick, fill=white!25, minimum size=1cm,align = center] at ({360/\n * (\s - 1)} : 0.8*\radiusk){
+      \includegraphics[width=2cm]{projection-function.pdf}
+    };
+  }
+\end{tikzpicture}
+\end{document}
