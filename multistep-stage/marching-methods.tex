@@ -1,0 +1,16 @@
+\documentclass[margin=1mm]{standalone}
+
+\input{../tikz}
+\input{../font}
+\input{../tableau_colors}
+
+\begin{document}
+%\graphitemize{$R(t, u(t), \dot{u}(t), \ddot{u}(t))$ \\ $ = $ \\ $0$}{Generalized-$\alpha$, Runge--Kutta}
+%\graphitemize{$S(t, q(t), \dot{q}(t))$ \\ $ = $ \\ $0$}{BDF, ABM, RK}
+%\newline
+\begin{tikzpicture}
+  \node[circ, ultra thick, fill = dorange, font=\bfseries\Large, node distance = 10cm] (a) {\graphitemize{$R(t, u(t), \dot{u}(t), \ddot{u}(t))$ \\ $ = $ \\ $0$}{Generalized-$\alpha$, Runge--Kutta}};
+  \node[circ, ultra thick, fill = dgreen, font=\bfseries\Large, right = 8cm of a, anchor = center] (b) {\graphitemize{$S(t, v(t), \dot{v}(t))$ \\ $ = $ \\ $0$}{Runge--Kutta, BDF, ABM, DIRK}};    
+  \node[circ, ultra thick, ring shading={from dgreen at 0.4 to dorange at 1.2}, font=\bfseries\Large, below = 9.5cm of a, between = a and b, anchor = center] (c) {\graphitemize{$R(t, u(t), \dot{u}(t), \ddot{u}(t))$ \\ $ = $ \\ $0$}{Generalized-$\alpha$, Runge--Kutta, BDF, ABM, DIRK}};    
+\end{tikzpicture}
+\end{document} 

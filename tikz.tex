@@ -16,6 +16,9 @@ matrix,shapes.symbols,plotmarks,decorations.markings,shadows}
   inner sep=0pt,minimum height=1em,text centered]
 \tikzstyle{block} = [rectangle, draw, fill=blue!20,
   text width=10em, text centered, rounded corners, minimum height=3.0em]
+
+\tikzstyle{autoblock} = [rectangle, draw, fill=blue!20, text centered, rounded corners]
+
 \tikzstyle{cloud} = [draw, ellipse,fill={rgb:orange,1;yellow,1;pink,1}, node distance=4cm,
     minimum height=1em,text centered]
 \tikzstyle{circ} = [draw,circle,fill={rgb:orange,1;yellow,1;pink,1}, 
@@ -41,6 +44,20 @@ matrix,shapes.symbols,plotmarks,decorations.markings,shadows}
 \tikzstyle{redline} = [draw, very thick, color=red, -latex']
 \tikzstyle{dotline} = [draw,dotted, very thick, color=black!50, -latex']
 
+
+% find center of two nodes
+% https://tex.stackexchange.com/questions/71478/how-to-center-one-node-exactly-between-two-others-with-tikz
+\tikzset{
+    between/.style args={#1 and #2}{
+         at = ($(#1)!0.5!(#2)$)
+    }
+}
+
+%\tikzset{
+%between base/.style args={#1 and #2}{
+%between=#1.base and #2.base
+%}
+%}
 
 
 % https://tex.stackexchange.com/questions/72784/arrow-with-two-colors-with-tikz
@@ -68,5 +85,61 @@ matrix,shapes.symbols,plotmarks,decorations.markings,shadows}
   double -stealth/.style args={#1 colored by #2 and #3}{
     -stealth,line width=#1,#2,
     postaction={-stealth,draw,,#3,line width=(#1)/3,shorten <=(#1)/3,shorten >=2*(#1)/3},
+  },
+}
+
+
+\makeatletter 
+\@namedef{color@1}{red!40}
+\@namedef{color@2}{green!40}   
+\@namedef{color@3}{blue!40} 
+\@namedef{color@4}{cyan!40}  
+\@namedef{color@5}{magenta!40} 
+\@namedef{color@6}{yellow!40}    
+
+\newcommand{\graphitemize}[2]{%
+  \begin{tikzpicture}[at start, every node/.style={align=center}]  
+    \node[minimum size=5cm,circle,
+%    fill=gray!40,
+ultra thick,
+ fill = white,
+ text  = black,
+ draw = black,
+    font=\Large, outer sep=1cm,inner sep=.5cm](ce){#1};  
+    \foreach \gritem [count=\xi] in {#2}
+             {\global\let\maxgritem\xi}  
+             \foreach \gritem [count=\xi] in {#2}
+                      {% 
+                        \pgfmathtruncatemacro{\angle}{360/\maxgritem*\xi}
+                        \edef\col{\@nameuse{color@\xi}}
+                        \node[circle,
+                        font=\bfseries\Large,    
+                          ultra thick,
+                          draw=white,
+                          %                          fill opacity=.75,
+                          fill = black,
+                          text = white,
+                          minimum size=3cm] at (ce.\angle) {\gritem };}%
+  \end{tikzpicture}  
+}%
+
+\tikzset{
+  ring shading/.code args={from #1 at #2 to #3 at #4}{
+    \def\colin{#1}
+    \def\radin{#2}
+    \def\colout{#3}
+    \def\radout{#4}
+    \pgfmathsetmacro{\proportion}{\radin/\radout}
+    \pgfmathsetmacro{\outer}{.8818cm}
+    \pgfmathsetmacro{\inner}{.8818cm*\proportion}
+    \pgfmathsetmacro{\innerlow}{\inner-0.01pt}
+    \pgfdeclareradialshading{ring}{\pgfpoint{0cm}{0cm}}%
+    {
+      color(0pt)=(white);
+      color(\innerlow)=(white);
+      color(\inner)=(#1);
+      color(\outer)=(#3)
+    }
+    \pgfkeysalso{/tikz/shading=ring}
   },
 }
