@@ -24,6 +24,22 @@ matrix,shapes.symbols,plotmarks,decorations.markings,shadows}
 \tikzstyle{circ} = [draw,circle,fill={rgb:orange,1;yellow,1;pink,1}, 
   node distance=4cm, minimum height=2em, text centered]
 
+\tikzstyle{line} = [draw, very thick, color=black!50, -latex']
+\tikzstyle{redline} = [draw, very thick, color=black!50, -latex']
+\tikzstyle{dotline} = [draw,dotted, very thick, color=black!50, -latex']
+
+\tikzset{
+    poly/.style={
+        draw, 
+        shape border rotate=0,
+        regular polygon,
+        regular polygon sides=3,
+        fill=red,
+        node distance=2cm,
+        minimum height=4em, 
+    }
+}
+
 \tikzstyle{line} = [draw, very thick, color=black, -latex']
 \tikzstyle{redline} = [draw, very thick, color=red, -latex']
 \tikzstyle{dotline} = [draw,dotted, very thick, color=black!50, -latex']

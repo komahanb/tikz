@@ -17,9 +17,9 @@
   \node[poly, very thick, fill=white, scale=5 , fill opacity = 1, text opacity = 0.0, rounded corners = 1cm, font=\bfseries\Large]{};
   \node [block, very thick, node distance=5cm, text width=5cm, text height = 0.7cm,  rounded corners,  centered, fill=none, draw=none, font=\bfseries\Large] (x) at (-0.,0) {Transforming \\Random Spaces\\\smallskip\smallskip\smallskip};
 
-  \node [circ, very thick, node distance=5cm, text width=3cm, inner xsep= 0, inner ysep=0, text height = 1cm, text centered, fill=Rhodamine!50,font=\bfseries\Large] (y) at (0+90:6) {General \\Random \\ $\mathbf{y}$};
-  \node [circ, very thick, node distance=5cm, text width=3cm, inner xsep= 0, inner ysep=0, text height = 1cm, text centered, fill=LimeGreen!50,font=\bfseries\Large] (x) at (120*1+90:6) {Arbitrary Random \\ $\mathbf{{x}}$};
-  \node [circ, very thick, node distance=5cm, text width=3cm, inner xsep= 0, inner ysep=0, text height = 1cm, text centered, fill=BlueGreen!50,font=\bfseries\Large] (z) at (120*2+90:6) {Standard Random \\ $\mathbf{z}$};
+  \node [circ, very thick, node distance=5cm, text width=3cm, inner xsep= 0, inner ysep=0, text height = 1cm, text centered, fill=white,font=\bfseries\Large] (y) at (0+90:6) {General \\Random \\ $\mathbf{y}$};
+  \node [circ, very thick, node distance=5cm, text width=3cm, inner xsep= 0, inner ysep=0, text height = 1cm, text centered, fill=white,font=\bfseries\Large] (x) at (120*1+90:6) {Arbitrary Random \\ $\mathbf{{x}}$};
+  \node [circ, very thick, node distance=5cm, text width=3cm, inner xsep= 0, inner ysep=0, text height = 1cm, text centered, fill=white,font=\bfseries\Large] (z) at (120*2+90:6) {Standard Random \\ $\mathbf{z}$};
 
   \node [node distance=2.5cm, text width=8cm, text height = 0.7cm, text = red, font=\bfseries\Large, below right=.5cm and -6cm of z] { 
     orthonormal probabilistic space
@@ -44,8 +44,7 @@
 \end{document}
 
 \begin{tikzpicture}[auto]
-  \node [block, very thick, node distance=3.5cm, text width=21cm, text height = 3.5cm, fill=lgray,font=\Large] (origin) at (0,0) 
-        {};
+  \node [block, very thick, node distance=3.5cm, text width=21cm, text height = 3.5cm, fill=lgray,font=\Large] (origin) at (0,0) {};
   \node [block, very thick, node distance=2.5cm, inner ysep=1em, text width=12cm, fill=white,font=\huge\bfseries, above = -0.75cm of origin] (det-opt) {
           Deterministic Optimization
   };
