@@ -1,0 +1,41 @@
+\documentclass{standalone}
+
+\input{../tikz}
+
+\begin{document}
+%\thispagestyle{empty}
+    \begin{tikzpicture}[grid/.style={very thin,gray}]
+        \draw[ultra thick, fill=green, font=\bfseries\Large] (0,0) grid (10,1);
+        \node[fill=yellow] at (1-0.5,0.5) {$\xi_1$};
+        \node[fill=yellow] at (2-0.5,0.5) {$\xi_2$};
+        \node[fill=yellow] at (3-0.5,0.5) {$\xi_3$};
+
+        \node[fill=yellow] at (4-0.5,0.5) {$\cdot$};
+        \node[fill=yellow] at (5-0.5,0.5) {$\cdot$};
+        \node[fill=yellow] at (6-0.5,0.5) {$\cdot$};
+        \node[fill=yellow] at (7-0.5,0.5) {$\cdot$};
+
+        \node[fill=yellow] at (8-0.5,0.5) {$\xi_{46}$};
+        \node[fill=yellow] at (9-0.5,0.5) {$\xi_{47}$};
+        \node[fill=yellow] at (10-0.5,0.5) {$\xi_{48}$};
+\end{tikzpicture}
+\end{document}
+
+
+
+
+
+
+%        \foreach \y in {9,...,0}
+%        \foreach \x in {1,...,3}
+        %\pgfmathsetmacro\z{int(1900+\x+(10*\y))}
+%        \node at (\x-0.5,0.5) {\x};
+
+
+ %       \foreach \x in {47,...,44}
+        %\pgfmathsetmacro\z{int(1900+\x+(10*\y))}
+  %      \node at (\x-0.5,0.5) {\x};
+
+    \end{tikzpicture}
+
+\end{document}
