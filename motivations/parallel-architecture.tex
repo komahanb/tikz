@@ -1,0 +1,65 @@
+\documentclass[margin=1mm]{standalone}
+
+\input{../tikz}
+\input{../font}
+\input{../tableau_colors}
+
+\tikzstyle{block} = [rectangle, draw, fill=red!40, 
+    text width=6em, text centered, rounded corners, minimum height=3em]
+\tikzstyle{arrow} = [draw, -latex']
+
+\usepackage{pgfplots}
+\pgfplotsset{compat=1.9}
+\begin{document}
+\thispagestyle{empty}
+
+\begin{tikzpicture}
+  
+  \node [cloud, very thick, 
+    node distance=4.5cm, 
+    inner ysep=1em,
+    inner xsep=1em, 
+    text width=12cm,
+    text height=3.5cm,
+    fill=gold!20, %white, %lblue!30,
+    font=\Large] at (0,0) (box) {
+  };
+  \node [block, very thick, 
+    node distance=0.0cm, 
+    inner ysep=0em,
+    inner xsep=0em, 
+    text width=7cm,
+    fill=lgreen,
+    font=\Large, above = -0.65cm of box] (box-header) {
+    {Unified Parallel C [UPC]}
+  };
+  \node [block, very thick, 
+    node distance=0.0cm, 
+    inner ysep=0em,
+    inner xsep=0em, 
+    text width=7cm,
+    fill=lgreen,
+    font=\Large, below = -0.65cm of box] (box-footer) {
+    {Coarray Fortran [CAF]}
+  };
+
+  \node [text centered, very thick, node distance=3.5cm, text width=10.0cm, fill=lgray,font=\Large] at (0,1.75) { Partitioned Global Address Space (PGAS) };
+  \node [text centered, very thick, node distance=3.5cm, text width=10.0cm, fill=lgray,font=\Large] at (0,-1.75) { Single Program Multiple Data (SPMD) };
+%  \node [block, very thick, node distance=3.5cm, text width=23cm, text height = 3cm, fill=lgray,font=\Large] (1) at (0,0) {};
+  \node [cloud, very thick, node distance=3.5cm, text width=4.0cm, fill=white,font=\Large] (1) at (0,0) {\textbf{Compilers} \\ \textbf{(GCC/Intel/PGI)} };
+  \node [block, very thick, node distance=7.5cm, inner ysep=1em, text width=7.05cm,fill=lblue,font=\Large, left of = 1] (temporal-analysis) {
+    Distributed Memory Parallelism
+  };
+  \node [block, very thick, node distance=7.5cm, inner ysep=1em, text width=7.05cm,fill=lblue,font=\Large, right of = 1] (sensitivity-analysis) {
+    Shared Memory Parallelism 
+  };
+
+  \draw[double arrow=7pt colored by black and white]
+  (temporal-analysis) -- (1);
+  \draw[double arrow=7pt colored by black and white]
+  (sensitivity-analysis) -- (1);
+
+
+\end{tikzpicture}
+
+\end{document}
