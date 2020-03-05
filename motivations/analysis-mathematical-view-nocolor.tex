@@ -1,0 +1,166 @@
+\documentclass[margin=1mm]{standalone}
+%
+\input{../tikz}
+\input{../font}
+\input{../tableau_colors}
+%
+\usepackage{bm}
+\usepackage{amsmath}
+\usepackage{amssymb}
+
+%
+% Define inner product in latex
+\newcommand\inner[2]{{\Bigg\langle} #1 ~\Bigg|~ #2 {\Bigg\rangle}}
+\newcommand\sinner[2]{{\Big\langle} #1 ~\Big|~ #2 {\Big\rangle}}
+\newcommand\linner[2]{{\big\langle} #1 ~\big|~ #2 {\big\rangle}}
+\newcommand\oinner[2]{{\langle} #1 ~|~ #2 {\rangle}}
+\newcommand\otinner[3]{{\langle} #1 |#2| #3 {\rangle}}
+\newcommand\cinner[2]{{\langle} #1 | #2 {\rangle}}
+\newcommand\crinner[2]{{(} #1 | #2 {)}}
+
+% Define commands
+\newcommand{\half}{\ensuremath{\frac{1}{2}}}
+
+\newcommand{\bea}{\begin{eqnarray}}
+\newcommand{\eea}{\end{eqnarray}}
+\newcommand{\beq}{\begin{equation}}
+\newcommand{\eeq}{\end{equation}}
+\newcommand{\bed}{\begin{displaymath}}
+\newcommand{\eed}{\end{displaymath}}
+
+\newcommand{\pd}[2]{\dfrac{\partial #1}{\partial #2}}
+\newcommand{\pf}[2]{\dfrac{d #1}{d #2}}
+\newcommand{\pdt}[2]{\dfrac{\partial^2 #1}{\partial #2^2}}
+\newcommand{\pft}[2]{\dfrac{d^2 #1}{d #2^2}}
+\newcommand{\pdtno}[2]{\dfrac{\partial^2 #1}{\partial #2}}
+\newcommand{\pdd}[3]{\dfrac{\partial^2 #1}{\partial #2 \partial #3}}
+\newcommand{\pff}[3]{\dfrac{d^2 #1}{d #2 d #3}}
+\newcommand{\tdt}[2]{\dfrac{d^2 #1}{d #2^2}}
+\newcommand{\td}[2]{\dfrac{d #1}{d #2}}
+\newcommand{\mb}{\bm}
+
+\newcommand{\x}{\bm{x}}
+\newcommand{\y}{\bm{y}}
+\newcommand{\z}{\bm{z}}
+
+\newcommand{\q}{\bm{q}}
+\renewcommand{\u}{\bm{u}}
+\renewcommand{\v}{\bm{v}}
+\newcommand{\qd}{\bm{\dot{q}}}
+\newcommand{\qdd}{\bm{\ddot{q}}}
+\newcommand{\R}{\bm{R}}
+\renewcommand{\S}{\bm{S}}
+\newcommand{\zerovec}{\bm{0}}
+
+\newcommand{\for}{\mathrm{for}}
+\renewcommand{\arg}[1]{\textcolor{black!70}{(#1)}}
+
+\begin{document}
+\thispagestyle{empty}
+
+\begin{tikzpicture}
+
+%  \node [block, very thick, node distance=3.5cm, text width=18cm, text height = 15cm, fill=lgray,font=\Large] (1) at (0,0) {};  
+%  \node [block, very thick, node distance=3.5cm, text width=17cm, text height = 15cm, fill=white,font=\Large] (1) at (0,-5.25) {};  
+
+  %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+  %                    NONLINEAR ALBEBRAIC SYSTEM              %
+  %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+  
+  \node [block, very thick, 
+    node distance=5cm, 
+    inner ysep=1em, 
+    inner xsep=1em, 
+    text width=8cm,
+    fill=white!30,
+    font=\Large] at (0,0) (static-physics) {
+    \begin{equation}\nonumber
+      \begin{aligned}
+        & \underset{u\arg{\xi}}{\text{solve}} &  &  R\arg{\xi,u(\xi)} = 0 & \\
+        & \text{evaluate}                     &  &  F\arg{\xi,u(\xi)}     & \\
+      \end{aligned}
+    \end{equation}
+  };
+  \node [block, very thick, 
+    node distance=0.0cm, 
+    inner ysep=0em,
+    inner xsep=0em, 
+    text width=7cm,
+    fill=white,
+    font=\Large, above = -0.65cm of static-physics] (static-physics-header) {
+    \textbf{Nonlinear Algebraic System}
+  };
+
+  %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+  %                    NONLINEAR ODE                           %
+  %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% 
+  
+  \node [block, ultra thick, 
+    node distance=4.75cm, 
+    inner ysep=1em, 
+    text width=12cm,
+    fill=white!30,
+    font=\Large, draw = black, below of = static-physics] (temporal-physics) {
+    \begin{equation}\nonumber
+      \begin{aligned}
+        & \underset{u\arg{t,\xi}, \dot{u}\arg{t,\xi}, \ddot{u}\arg{t,\xi}}{\text{solve}} &  &  R\arg{t,\xi,u(t,\xi),\dot{u}(t,\xi),\ddot{u}(t,\xi)} = 0 & \\        
+        & \text{evaluate}                                                                &  &   F\arg{t,\xi,u(t,\xi),\dot{u}(t,\xi),\ddot{u}(t,\xi)}    & \\
+      \end{aligned}
+    \end{equation}
+  };
+  \node [block, ultra thick, 
+    node distance=0.0cm, 
+    inner ysep=1em,
+    inner xsep=1em, 
+    text width=6cm,
+    fill=white!50,
+    font=\Large, draw = black,  above = -0.65cm of temporal-physics] (temporal-physics-header) {
+    \textbf{Nonlinear ODE System}
+  };
+
+  %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+  %                    NONLINEAR STO. ODE                      %
+  %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% 
+  
+  \node [block, ultra thick, 
+    node distance=5.5cm, 
+    inner ysep=1em, 
+    text width=16cm,
+    fill=white!30,
+    font=\Large, draw = black, below of = temporal-physics] (stochastic-temporal-physics) {
+    \begin{equation}\nonumber
+      \begin{aligned}
+        & \underset{u\arg{t,y(\xi)}, \dot{u}\arg{t,y(\xi)}, \ddot{u}\arg{t,y(\xi)}}{\text{solve}} &  &  R\arg{t,y(\xi),u(t,y(\xi)),\dot{u}(t,y(\xi)),\ddot{u}(t,y(\xi))} = 0 & \\
+        & \text{evaluate}                     &  &   \mathbb{E}\left[F\arg{t,y(\xi),u(t,y(\xi)),\dot{u}(t,y(\xi)),\ddot{u}(t,y(\xi))}\right]   & \\
+        &                                     &  &   \mathbb{V}\left[F\arg{t,y(\xi),u(t,y(\xi)),\dot{u}(t,y(\xi)),\ddot{u}(t,y(\xi))}\right]   & \\
+        &                                     &  &   \mathbb{S}\,\left[F\arg{t,y(\xi),u(t,y(\xi)),\dot{u}(t,y(\xi)),\ddot{u}(t,y(\xi))}\right]   & \\        
+      \end{aligned}
+    \end{equation}
+  };
+  \node [block, ultra thick, 
+    node distance=0.0cm, 
+    inner ysep=1em,
+    inner xsep=1em, 
+    text width=8cm,
+    fill=white!50,
+    font=\Large, draw = black, above = -0.65cm of stochastic-temporal-physics] (stochastic-temporal-physics-header) {
+    \textbf{Nonlinear Stochastic ODE System}
+  };
+
+  \draw[double arrow=10pt colored by black and white!30, rounded corners] (static-physics) -- (temporal-physics-header);
+  \draw[double arrow=10pt colored by black and white!30, rounded corners] (temporal-physics) -- (stochastic-temporal-physics-header);
+  
+\end{tikzpicture}
+
+\end{document}
+
+  \draw[double arrow=7pt colored by black and lime,rounded corners]
+  (uq-ouu)  -| (se);
+  \draw[double arrow=7pt colored by black and lime,rounded corners]
+  (uq-ouu) -| (temporal-analysis);
+  \draw[double arrow=7pt colored by black and red]
+  (temporal-analysis) -- (1);
+  \draw[double arrow=7pt colored by black and red]
+  (sensitivity-analysis) -- (1);
+\end{tikzpicture}
+\end{document}

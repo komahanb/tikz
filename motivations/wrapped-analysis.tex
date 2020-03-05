@@ -1,0 +1,23 @@
+\documentclass[margin=1mm]{standalone}
+
+\usepackage[dvipsnames]{xcolor}
+\usepackage{adjustbox}
+
+\input{../tikz}
+\input{../font}
+\input{../tableau_colors}
+
+
+
+\begin{document}
+\thispagestyle{empty}
+
+%  left and x  right, below, and top.
+\begin{tikzpicture}[auto]
+  \node [cloud, very thick, node distance=5cm, inner
+    xsep = 0, inner ysep=0em, text width = 18cm, text centered,
+    fill=lorange,font=\bfseries\Large] (a) at (0,0) {\includegraphics[width=\linewidth]{analysis-mathematical-view.pdf}
+};
+\end{tikzpicture}
+
+\end{document}
