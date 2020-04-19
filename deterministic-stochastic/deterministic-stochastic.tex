@@ -1,0 +1,33 @@
+\documentclass{standalone}
+
+\input{../tikz}
+\input{../font}
+\input{../tableau_colors}
+
+\begin{document}
+
+\begin{tikzpicture}
+
+  \node [decision, very thick] (deterministic-physics-states) at (0,0) {Deterministic Physics \\ Fields};
+  \node [block, very thick, left of=deterministic-physics-states, node distance=3.4cm, fill=white] {Deterministic Physics \\ Residual};
+  \node [block, very thick, right of=deterministic-physics-states, node distance=3.4cm, fill=white] {Deterministic Physics \\ Jacobian};
+  \node [block, very thick, above of=deterministic-physics-states, node distance=2cm, fill=white] {Deterministic  \\ Metrics};
+
+  \node [decision, very thick] (deterministic-adjoint-states) at (11,0) {Deterministic Adjoint \\ Fields};
+  \node [block, very thick, left of=deterministic-adjoint-states, node distance=3.4cm, fill=white] {Deterministic Adjoint \\ Residual};
+  \node [block, very thick, right of=deterministic-adjoint-states, node distance=3.4cm, fill=white] {Deterministic Adjoint \\ Jacobian};
+  \node [block, very thick, above of=deterministic-adjoint-states, node distance=2cm, fill=white] { Adjoint Derivatives of \\ Deterministic Metrics};
+
+  \node [decision, very thick] (stochastic-physics-states) at (0,-4) {Stochastic Physics \\ Fields};
+  \node [block, very thick, left of=stochastic-physics-states, node distance=3.4cm, fill=white] {Stochastic Physics \\ Residual};
+  \node [block, very thick, right of=stochastic-physics-states, node distance=3.4cm, fill=white] {Stochastic Physics \\ Jacobian};
+  \node [block, very thick, below of=stochastic-physics-states, node distance=2cm, fill=white] {Stochastic  \\ Metrics};
+
+  \node [decision, very thick] (stochastic-adjoint-states) at (11,-4) {Stochastic Adjoint \\ Fields};
+  \node [block, very thick, left of=stochastic-adjoint-states, node distance=3.4cm, fill=white] {Stochastic Adjoint \\ Residual};
+  \node [block, very thick, right of=stochastic-adjoint-states, node distance=3.4cm, fill=white] {Stochastic Adjoint \\ Jacobian};
+  \node [block, very thick, below of=stochastic-adjoint-states, node distance=2cm, fill=white] { Adjoint Derivatives of \\ Stochastic Metrics};
+
+\end{tikzpicture}
+
+\end{document}
