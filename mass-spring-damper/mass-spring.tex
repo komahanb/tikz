@@ -1,0 +1,56 @@
+\documentclass{standalone}
+\input{../font}
+\input{../tikz}
+\input{../tableau_colors}
+
+\usepackage{pgfplots}
+\pgfplotsset{compat=1.9}
+\usetikzlibrary{patterns,decorations.pathmorphing,positioning}
+
+\begin{document}
+\thispagestyle{empty}
+
+\begin{tikzpicture}[every node/.style={outer sep=0pt},very thick, font=\huge\bfseries,
+ mass/.style={draw, very thick, rounded corners},
+ spring/.style={very thick,decorate,decoration={zigzag,pre length=0.3cm,post
+ length=0.3cm,segment length=6}},
+ ground/.style={fill,pattern=north east lines,draw=none,minimum
+ width=0.75cm,minimum height=0.3cm},
+ dampic/.pic={\fill[white] (-0.1,-0.3) rectangle (0.3,0.3);
+ \draw (-0.3,0.3) -| (0.3,-0.3) -- (-0.3,-0.3);
+ \draw[line width=1mm] (-0.1,-0.3) -- (-0.1,0.3);}]
+
+  \node[mass,minimum width=2.5cm,minimum height=2.5cm,fill=lred] (m1) {$m_1$};
+  \node[mass,minimum width=2.5cm,minimum height=2.5cm,fill=lgreen,right=1.5cm of m1] (m2) {$m_2$};
+  \node[mass,minimum width=2.5cm,minimum height=2.5cm,fill=lblue,right=1.5cm of m2] (m3) {$m_3$};
+
+  \node[left=2cm of m1,ground,minimum width=3mm,minimum height=2.5cm] (g1){};
+  \draw (g1.north east) -- (g1.south east);
+
+  % \draw[thin,dashed] (m1.south) -- ++(0,-1.2);
+  % \draw[latex-] (m1.south |- aux'1) -- ++ (-1.5,0) coordinate(aux3) node[midway,above]{$x_d$};
+  % \draw[thin] ([yshift=-2mm]aux3) |- ++ (-1,0.5) -| (m2.-40);
+
+  \node[right=2cm of m3,ground,minimum width=3mm,minimum height=2.5cm] (g2){};
+  \draw (g2.south west) -- (g2.north west);
+
+  \draw[spring] ([yshift=0mm]g1.east) coordinate(aux) -- (m1.west|-aux) node[midway,above=1mm]{$k_1$};
+  \draw[spring]  (m1.east|-aux) -- (m2.west|-aux) node[midway,above=1mm]{$k_2$};
+  \draw[spring]  (m2.east|-aux) -- (m3.west|-aux) node[midway,above=1mm]{$k_3$};
+  \draw[spring] ([yshift=0mm]g2.west) coordinate(aux) -- (m3.east|-aux) node[midway,above=1mm]{$k_4$};
+
+%  \foreach \X in {1,2,3}{
+%    \draw[thin,dashed] (m\X.north) -- ++ (-0.5,0.5) coordinate[midway](aux\X);
+%    \draw[latex-] (0.5,0) node[right,midway,above]{$u_\X$} -- ++ (aux\X);
+%    \draw[latex-] (aux\X) -- ++ (-0.5,0) node[midway,above]{$u_\X$} node[right,ground,minimum height=7mm,minimum width=1mm] (g'\X){};
+
+    %\draw[thin,dashed] (m\X.south) -- ++ (0,-1) coordinate[pos=0.85](aux'\X);
+    %\draw[latex-] (aux'\X) -- ++ (-1,0) node[midway,above]{$x_\X$} node[left,ground,minimum height=7mm,minimum width=1mm] (g'\X){};
+    %\draw[thick] (g'\X.north east) -- (g'\X.south east);
+%  }
+
+\end{tikzpicture}
+
+\end{document}
+
+enter image description here
