@@ -13,10 +13,10 @@
 \thispagestyle{empty}
 
 %  left and x  right, below, and top.
-\trimbox{0.25cm 0cm 0.5cm 1.25cm}{ 
+\trimbox{0.25cm 0cm 0.5cm 1.25cm}{
 \begin{tikzpicture}[auto]
-  \node[poly, very thick, fill=white, scale=8, fill opacity = 1, rounded corners = 0cm, font=\bfseries\Large]{}; 
-  \node[poly, very thick, regular polygon sides=12, fill=white!50, scale=6 , fill opacity = 1, text opacity = 0.0, rounded corners = 0cm, font=\bfseries\Large]{};
+  \node[poly, very thick, fill=white, scale=8, fill opacity = 1, rounded corners = 0cm, font=\bfseries\Large]{};
+  \node[poly, very thick, regular polygon sides=12, fill=lgray!50, scale=6 , fill opacity = 1, text opacity = 0.0, rounded corners = 0cm, font=\bfseries\Large]{};
 
   \node [block, very thick, node distance=5cm, text width=6cm, text height = 0.7cm,  rounded corners,  centered, fill=none, draw=none, font=\bfseries\Huge] (x) at (-0.,0) {optimizing \\aeromechanical\\ systems\\ $\in$ \\ $\{{(1)} \otimes {(2)} \otimes {(3)}\}$};
 
@@ -24,19 +24,19 @@
   \node [circ, very thick, node distance=5cm, text width=2.5cm,  inner xsep = 0, inner ysep=0em, text height = 1cm, text centered, fill=white,font=\bfseries\Large] (x) at (120*1+90:6) {(2)\\ {temporal}\\ uncertainty analysis\\~\\};
   \node [circ, very thick, node distance=5cm, text width=2.5cm,  inner xsep = 0, inner ysep=0em, text height = 1cm, text centered, fill=white,font=\bfseries\Large] (z) at (120*2+90:6) {(3) {temporal} sensitivity analysis\\~\\};
 
-  \node [node distance=2.5cm, text width=8cm, text height = 0.7cm, text = red, font=\Large, below of = z] {    
+  \node [node distance=2.5cm, text width=8cm, text height = 0.7cm, text = black, font=\Large, below of = z] {
     \begin{center}
       \textcolor{black}{derivatives of probabilistic moments of functions of interest}
     \end{center}
   };
 
-  \node [fill=none, node distance=2.5cm, text width=5cm, text height = 0.7cm, text = red, font=\Large, below of = x] {    
+  \node [fill=none, node distance=2.5cm, text width=5cm, text height = 0.7cm, text = black, font=\Large, below of = x] {
     \begin{center}
       \textcolor{black}{probabilistic moments of functions of interest}
     \end{center}
   };
 
-  \node [node distance=3.25cm, text width=5cm, text height = 0.7cm, text = red, font=\Large, above of = y] {    
+  \node [node distance=3.25cm, text width=5cm, text height = 0.7cm, text = black, font=\Large, above of = y] {
     \begin{center}
       \textcolor{black}{functions of interest}
     \end{center}

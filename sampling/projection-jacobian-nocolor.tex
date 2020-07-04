@@ -1,0 +1,58 @@
+\documentclass[margin=1mm]{standalone}
+
+\input{../tikz}
+\input{../font}
+\input{../tableau_colors}
+
+\usepackage{amsmath}
+
+\begin{document}
+
+
+\begin{tikzpicture}
+  %
+  \def\n{5}
+  \def\radiusl{1.25cm}
+  \def\radiusk{5.5cm}
+  \def\radiusj{6cm}
+  \def\radiusi{8.5cm}
+  %
+  \def\marginl{25} % margin in angles, depends on the radius
+  \def\margink{25}  % margin in angles, depends on the radius
+  \def\marginj{12}  % margin in angles, depends on the radius
+  \def\margini{3}  % margin in angles, depends on the radius
+  %
+  % \node[draw, circ, very thick, fill=white , fill opacity = 1, minimum size=2*\radiusi] at (0,0) {};
+  \node[draw, circ, very thick, fill=dgreen, fill opacity = 1, minimum size=2*\radiusj] at (0,0) {};
+  \node[draw, circ, very thick, fill=white , fill opacity = 1, minimum size=2*\radiusk] at (0,0) {};
+  \node[draw, circ, very thick, fill=white, fill opacity = 1, minimum size=2*\radiusl,font=\bfseries, align=center] at (0,0) {
+      $ \left\langle \widehat{\psi_i}(y) \Big| \frac{dR}{du}\left(y,u(y) \right) \Big| \widehat{\psi_j}(y) \right\rangle $
+  };
+
+  %
+  % \node[draw, circ, very thick, fill=white!25,  minimum size=1cm, align=center] at (a) {$R\left(y_\s,u(y_\s)\right)$\\$=$\\$0$};
+  %
+  \foreach \s in {1,...,\n}{
+    \coordinate (a) at ({360/\n * (\s - 1)} : \radiusk);
+    \node[draw, circ, very thick, fill=white!75,  minimum size=1cm, align=center] at (a) {$\frac{dR}{du}\left(y_\s,u(y_\s)\right)$};
+    \def\deg{{360/\n * (\s-1)}}
+
+    \coordinate (bi) at ({{90 * (1 - 1)}} : 1.9);
+    \path (bi) + (\deg:\radiusk) coordinate (ci);
+    \node[draw, circ, very thick, fill=white!75,  minimum size=1.5cm, align=center] at (ci) {$\widehat{\psi_j}(y_\s)$};
+
+    \coordinate (bj) at ({{90 * (2 - 1)}} : 1.9);
+    \path (bj) + (\deg:\radiusk) coordinate (cj);
+    \node[draw, circ, very thick, fill=gold,  minimum size=1.5cm, align=center] at (cj) {$y_\s$};
+
+    \coordinate (bk) at ({{90 * (3 - 1)}} : 1.9);
+    \path (bk) + (\deg:\radiusk) coordinate (ck);
+    \node[draw, circ, very thick, fill=white!75,  minimum size=1.5cm, align=center] at (ck) {$\widehat{\psi_i}(y_\s)$};
+
+    \coordinate (bk) at ({{90 * (4 - 1)}} : 1.9);
+    \path (bk) + (\deg:\radiusk) coordinate (ck);
+    \node[draw, circ, very thick, fill=white!75,  minimum size=1.5cm, align=center] at (ck) {$\alpha_\s$};
+  }
+\end{tikzpicture}
+
+\end{document}
