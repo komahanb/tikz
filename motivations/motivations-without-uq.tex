@@ -1,0 +1,23 @@
+\documentclass{standalone}
+
+\input{../tikz}
+\input{../font}
+\input{../tableau_colors}
+
+\begin{document}
+\thispagestyle{empty}
+\begin{tikzpicture}[auto]
+  \node [block, very thick, node distance=3.5cm, text width=18cm, text height = 3cm, fill=lgray,font=\Large] (1) at (0,0) {};
+  \node [cloud, very thick, node distance=3.5cm, text width=5.5cm, fill=gold,font=\Large] (1) at (0,0) {Design optimization of aeromechanical systems};
+  \node [block, very thick, node distance=7.0cm, inner ysep=1em, text width=3cm,fill=lpink,font=\Large, left of = 1] (temporal-analysis) {
+    Analysis of System
+  };
+  \node [block, very thick, node distance=7.0cm, inner ysep=1em, text width=3cm,fill=lblue,font=\Large, right of = 1] (sensitivity-analysis) {
+    Update of System
+  };
+  \draw[double arrow=7pt colored by black and red]
+  (temporal-analysis) -- (1);
+  \draw[double arrow=7pt colored by black and red]
+  (sensitivity-analysis) -- (1);
+\end{tikzpicture}
+\end{document}
