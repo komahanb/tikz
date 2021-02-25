@@ -1,0 +1,28 @@
+\documentclass[margin=1mm]{standalone}
+
+\input{../tikz}
+\input{../font}
+\input{../tableau_colors}
+
+\usepackage{verbatim}
+
+\begin{document}
+\begin{tikzpicture}[rotate=-90]
+  \path[mindmap,concept color=black,text=white, grow cyclic, align=center]
+    node[concept] { \newline \newline $R(t, u(t), \dot{u}(t), \ddot{u}(t))$ \\ $ = $ \\ $0$}
+    child[concept color=green!50!black] {
+      node[concept] {practical}
+      child { node[concept] {algorithms} }
+      child { node[concept] {data structures} }
+      child { node[concept] {pro\-gramming languages} }
+      child { node[concept] {software engineer\-ing} }
+    }  
+    child[concept color=blue] {
+      node[concept] {applied}
+      child { node[concept] {databases} }
+      child { node[concept] {WWW} }
+    }
+    child[concept color=red] { node[concept] {technical} }
+    child[concept color=orange] { node[concept] {theoretical} };
+\end{tikzpicture}
+\end{document}

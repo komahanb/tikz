@@ -1,0 +1,37 @@
+\documentclass{standalone}
+\input{../tikz}
+\input{../font}
+\input{../tableau_colors}
+\tikzstyle{arrow} = [draw, -latex']
+
+\begin{document}
+
+\begin{tikzpicture}
+
+  \node [cloud, very thick, text width=4cm, font=\Large\bfseries, fill=yellow!25] (det-res) at (0,0) {Deterministic Right Hand Side};
+  \node [cloud, very thick, text width=4cm, font=\Large\bfseries, node distance = 7cm, fill=lgreen!25, right of = det-res] (sto-res) {Stochastic Right Hand Side};
+  \draw [double arrow=5pt colored by black and lblue, rounded corners] (det-res) -- (sto-res);
+
+  \node [cloud, very thick, text width=4cm, font=\Large\bfseries, fill=yellow!25, above = 0.5cm of det-res] (det-states) {Deterministic Adjoint States};
+  \node [cloud, very thick, text width=4cm, font=\Large\bfseries, node distance = 7cm, fill=lgreen!25, right of = det-states] (sto-states) {Stochastic Adjoint States};
+  \draw [double arrow=5pt colored by black and lblue, rounded corners] (det-states) -- (sto-states);
+
+  \node [cloud, very thick, text width=4cm, font=\Large\bfseries, fill=yellow!25, below = 0.5cm of det-res] (det-jac) {Deterministic Adjoint Jacobian};
+  \node [cloud, very thick, text width=4cm, font=\Large\bfseries, node distance = 7cm, fill=lgreen!25, right of = det-jac] (sto-jac) {Stochastic Adjoint Jacobian};
+  \draw [double arrow=5pt colored by black and lblue, rounded corners] (det-jac) -- (sto-jac);
+
+%  \node [cloud, very thick, text width=4cm, font=\Large\bfseries, fill=yellow!25, below = 0.5cm of det-jac] (det-ic) {Deterministic Initial Conditions};
+%  \node [cloud, very thick, text width=4cm, font=\Large\bfseries, node distance = 7cm, fill=lgreen!25, right of = det-ic] (sto-ic) {Stochastic Initial Conditions};
+%  \draw [double arrow=5pt colored by black and lblue, rounded corners] (det-ic) -- (sto-ic);
+
+  % \node [cloud, very thick, text width=4cm, font=\Large\bfseries, node distance=6.5cm, right of = bdf, fill=white!25] (abm) {Adams Bashforth Moulton (ABM)};
+  % \node [cloud, very thick, text width=4cm, font=\Large\bfseries, node distance=6.5cm, right of = abm, fill=white!25] (dirk) {Diagonally Implicit Runge--Kutta (DIRK)};
+  % \node [cloud, very thick, text width=2cm, font=\Large\bfseries, node distance=5cm, right of = dirk, fill=white!25] (newmark) {Newmark};
+  % \node [block, very thick, text width=24cm, text height = 4cm, font=\large\bfseries, fill=white!25, fill = none] (wrap) at (8,0) {};
+  % \node [block, very thick, text width=16cm, text height = 1cm, font=\Huge\bfseries, fill=yellow!25, fill = lgreen!40] (wrap) at (8,2) {Implicit Time Marching Methods};
+  % \node [block, very thick, text width=16cm, text height = 1cm, font=\Huge\bfseries, fill=yellow!25, fill = lblue!40] (wrap) at (8,2) {Time Dependent Adjoint Formulations};
+  % \node [block, very thick, text width=16cm, text height = 0.8cm, font=\Huge\bfseries, fill=white!25, fill = lorange!40] (wrap) at (8,2) {Stochastic Adjoint Formulations};
+
+\end{tikzpicture}
+
+\end{document}
