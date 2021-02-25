@@ -1,0 +1,85 @@
+\documentclass{standalone}
+
+\input{../tikz}
+\input{../font}
+\input{../tableau_colors}
+
+\begin{document}
+
+\begin{tikzpicture}[auto]
+  \node [block, very thick, node distance=3.5cm, text width=7em, fill=none,font=\bfseries\Large] (a) at (0,0) {{Revolute Constraint}};
+  \node [block, very thick, node distance=5cm, text width=12em, fill=none,font=\bfseries\Large, right of=a] (b) {{Relative Rotation \\ Constraint}};
+  \node [block, very thick, node distance=2cm, text width=16em, fill=none,font=\bfseries\Large, above right = 1cm of b] (b1) {{Prescribed Displacement \\ Constraint}};
+  \node [block, very thick, node distance=2cm, text width=12em, fill=none,font=\bfseries\Large, below right = 2cm of b] (b2) {{Elastomeric Device \\ Constraint}};
+
+  \draw[double arrow=7pt colored by black and lime,rounded corners] (a) -- (b);
+  \draw[double arrow=7pt colored by black and red,rounded corners] (b) to [out=0, in=-90] (b1);
+  \draw[double arrow=7pt colored by black and red,rounded corners] (b) to [out=0, in=90] (b2);
+
+  \node [very thick, node distance=1cm, text width=2cm, fill=none,font=\bfseries\Large, above of=b1] (b3) {$[4+1]$};
+  \node [very thick, node distance=1cm, text width=2cm, fill=none,font=\bfseries\Large, below of=b2] (b5) {$~~~[4]$};
+
+%  \path [line, very thick] (a) -- (b);
+%  \path [line, very thick] (b) -- (b1);
+%  \path [line, very thick] (b) -- (b2);
+
+\end{tikzpicture}
+
+\end{document}
+
+\begin{tikzpicture}[auto]
+  \def\dy{2.5};
+  \node [cloud, very thick, node distance=3.5cm, text width=7em, fill=dskyblue,font=\bfseries] (1) at (0,0) {{Characterization of Input Uncertainties}};
+  \node [block, very thick, node distance=5.0cm, inner ysep=0em, text width=4cm,fill=lskyblue,font=\Large] (1A)  at  (5,0) {
+    nonprobabilistic
+  };
+  \path [line, dashed] (1) -- (1A);
+  \node [block, very thick, node distance=5cm, inner ysep=0em, text width=4cm,fill=lskyblue,font=\Large] (1a) at (-5,0) {
+    probabilistic
+  };
+  \path [line, dashed] (1) -- (1a);
+
+  \node [cloud, very thick, node distance=3.5cm, text width=7em, fill=dorange, font=\bfseries] (2) at (0,-\dy) {{Propagation of Input Uncertainties}};
+  \node [] (2A)  at  (5,-\dy) {
+    \includegraphics[width=0.35\linewidth]{epistemic-bounds.pdf}
+  };
+
+  \node [] (2B)  at  (-5,-\dy) {
+    \includegraphics[width=0.35\linewidth]{standard-distributions.pdf}
+  };
+
+  %  \path [line, dashed] (2) -- (2A);
+%  \node [block, very thick, node distance=5cm, inner ysep=0em, text width=4cm,fill=lorange,font=\Large] (2a) at (-5,-\dy) {%
+%
+%  };
+ % \path [line, dashed] (2) -- (2a);
+  \path [line, very thick] (1) -- (2);
+
+  \node [cloud, very thick, node distance=3.5cm, text width=7em, fill = dgreen, font=\bfseries] (3) at (0,-2*\dy) {{Characterization of Output Uncertainties}};
+  \node [block, very thick, node distance=5cm, inner ysep=0em, text width=4cm, fill=lgreen,font=\Large] (3A)  at  (5,-2*\dy) {
+    nonprobabilistic
+  };
+  \path [line, dashed] (3) -- (3A);
+  \node [block, very thick, node distance=5cm, inner ysep=0em, text width=4cm, fill=lgreen,font=\Large] (3a) at (-5,-2*\dy) {
+    probabilistic
+  };
+  \path [line, dashed] (3) -- (3a);
+  \path [line] (2) -- (3);
+
+  \node [cloud, very thick, node distance=3.5cm, text width=7em, fill=dpurple!70,font=\bfseries] (4) at (0,-3*\dy) {{Optimization \\ Under \\ Uncertainty}};
+
+  \path [line, dashed] (3) -- (4);
+
+  % connect probabilistics and nonprobabilistics
+%  \draw[double arrow=8pt colored by black and white,rounded corners]
+%  (1A) to [out=0,in=0] (3A);
+
+%  \draw[double arrow=8pt colored by black and white,rounded corners]
+%  (1a) to [out=180,in=180] (3a);
+
+%  \draw[double arrow=7pt colored by black and lime,rounded corners]
+%  (uq-ouu) -| (temporal-analysis);
+
+\end{tikzpicture}
+
+\end{document}

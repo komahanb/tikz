@@ -1,0 +1,42 @@
+\documentclass{standalone}
+
+\input{../tikz}
+\input{../font}
+\input{../tableau_colors}
+
+\begin{document}
+
+\begin{tikzpicture}[auto]
+  \def\dy{2.5};
+  \node [block, very thick, node distance=3.5cm, text width=4cm, text height = 5cm, fill=lgray!20,font=\Large] (9) at (0,-2.5*\dy) {};
+  \node [block, very thick, node distance=3.5cm, text width=4cm, text height = 7cm, fill=lgray!20,font=\Large] (10) at (2*\dy,-3.0*\dy) {};
+
+  \node [cloud, very thick, node distance=3.5cm, text width=7em, fill=white,font=\bfseries] (1) at (\dy,0) {{Read Input File}};
+  \node [cloud, very thick, node distance=3.5cm, text width=7em, fill=white, font=\bfseries] (2) at (2*\dy,-\dy) {{Create FEMControl Object}};
+  \path [line] (1) -- (2);
+  \node [cloud, very thick, node distance=3.5cm, text width=7em, fill = white, font=\bfseries] (3) at (2*\dy,-2*\dy) {{Start Time Loop}};
+  \path [line,dashed] (3) -- (2);
+  \node [cloud, very thick, node distance=3.5cm, text width=7em, fill=white!70,font=\bfseries] (4) at (2*\dy,-3*\dy) {{Start Nonlinear Solution Loop}};
+  \path [line,dashed] (4) -- (3);
+  \node [cloud, very thick, node distance=3.5cm, text width=7em, fill=white!70,font=\bfseries] (5) at (2*\dy,-4*\dy) {{Nonlinear Solution Iteration}};
+  \path [line,dashed] (5) -- (4);
+
+  \node [cloud, very thick, node distance=3.5cm, text width=7em, fill=white!70,font=\bfseries] (6) at (0,-1*\dy) {{Create Domain Decomposition Object}};
+%  \path [line] (5) -- (6);
+  \node [cloud, very thick, node distance=3.5cm, text width=7em, fill=white!70,font=\bfseries] (7) at (0,-2*\dy) {{Assemble System Matrix $\&$ Vectors}};
+  \path [line,dashed] (7) -- (6);
+
+  \node [cloud, very thick, node distance=3.5cm, text width=7em, fill=white!70,font=\bfseries] (8) at (0,-3*\dy) {{Use Element Matrices}};
+  \path [line,dashed] (8) -- (7);
+  \path [line] (1) -- (6);
+
+
+  \path [line, dash dot, color=dred] (2) -- (6);
+  \path [line, dash dot, color=dred] (6) -- (2);
+
+  \node [cloud, very thick, node distance=3.5cm, text width=7em, fill=white!70,font=\bfseries] (11) at (4*\dy,-3*\dy) {{Write states to file}};
+  \path [line] (10) -- (11);
+
+\end{tikzpicture}
+
+\end{document}
