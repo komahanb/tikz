@@ -1,4 +1,3 @@
-% This is the file survey.tex
 \documentclass{standalone}
 \input{../tikz}
 \input{../tableau_colors}
@@ -37,43 +36,51 @@
   \end{interface}
 
   \begin{class}{Beam Element}
-    \position[left=6.5cm, anchor=west]{Element.south west}
+    \position[left=7.5cm, anchor=west]{Element.west}
     \operation{Add Residual and Jacobian}
     \operation{Add Residual State Variable Sensitivity}
     \operation{Add Residual Design Variable Sensitivity}
   \end{class}
 
   \begin{class}{Revolute Joint Element}
-    \position[right=6.5cm, anchor=east]{Element.south east}
+    \position[right=7.5cm, anchor=east]{Element.east}
     \operation{Add Residual and Jacobian}
     \operation{Add Residual State Variable Sensitivity}
     \operation{Add Residual Design Variable Sensitivity}
   \end{class}
 
-  \begin{class}{ProbabilisticSpace}
-    \position[below=4.25cm, anchor=west]{Beam Element.west}
-    \operation{Add Random Parameter}
-    \operation{Get Quadarature Points and Weight}
+
+
+
+    \begin{class}{Stochastic Element}
+      \position[below=5.0cm, anchor=south]{Element.south}
+    \attribute{deterministic element : Element}
+    \attribute{probabilistic space : Probabilistic Space}
+    \operation{Add Residual and Jacobian}
+    \operation{Add Residual State Variable Sensitivity}
+    \operation{Add Residual Design Variable Sensitivity}
+    \end{class}
+
+
+
+  \begin{class}{Probabilistic Space}
+    \position[left=7.5cm, anchor=west]{Stochastic Element.west}
+%    \position[below=4.25cm, anchor=west]{Beam Element.west}
+    \operation{Add Probabilistic Variable}
+    \operation{Get Quadrature Points and Weight}
     \operation{Evaluate Orthonormal Basis}
   \end{class}
 
-  \begin{class}{StochasticElement}
-    \position[right=7.15cm, anchor=east]{ProbabilisticSpace.east}
-    \operation{Add Residual and Jacobian}
-    \operation{Add Residual State Variable Sensitivity}
-    \operation{Add Residual Design Variable Sensitivity}
-  \end{class}
+  \generalization{Stochastic Element}{Element}
+  \generalization{Revolute Joint Element}{Element}
+  \generalization{Beam Element}{Element}
 
-  \generalization{StochasticElement}{Element}
-  \generalization[bend right=25]{Revolute Joint Element}{Element}
-  \generalization[bend left=25]{Beam Element}{Element}
-
-  \composition{StochasticElement}[uses]{ProbabilisticSpace}
-  \composition[bend left=17]{StochasticElement}[uses]{Beam Element}
-  \composition[bend right=17]{StochasticElement}[uses]{Revolute Joint Element}
+  \composition{Stochastic Element}[uses]{Probabilistic Space}
+  \composition[bend left=17]{Stochastic Element}[uses]{Beam Element}
+  \composition[bend right=17]{Stochastic Element}[uses]{Revolute Joint Element}
 
   \package{Deterministic Element Library}{(Element)(Beam Element)(Revolute Joint Element)}
-  \package{Stochastic Galerkin Plugin}{(ProbabilisticSpace)(StochasticElement)}
+  \package{Semi-Intrusive Stochastic Galerkin Layer}{(Probabilistic Space)(Stochastic Element)}
 
 \end{tikzpicture}
 

@@ -1,0 +1,98 @@
+\documentclass{standalone}
+\input{../tikz}
+\input{../tableau_colors}
+\usepackage{../classdiagram}
+\usepackage{graphics}
+\usepackage{tikz}
+%\usepackage[T1]{fontenc}
+%\usepackage[utf8]{inputenc}
+%\usepackage[T1]{fontenc}
+%\usepackage[margin=0cm]{geometry}
+% \usepackage[parfill]{parskip}
+\usepackage{expl3}
+\usepackage{float}
+\usepackage{listings}
+\usepackage{lmodern}
+\usepackage{courier}
+\usepackage{soul}
+\usepackage{xcolor}
+\usepackage{url}
+\usepackage{hyperref}
+\usepackage{filecontents}
+
+\definecolor{kwd}{RGB}{255, 255, 255}
+\definecolor{com}{RGB}{255, 255, 255}
+\definecolor{pun}{RGB}{255, 255, 255}
+\definecolor{typ}{RGB}{255, 255, 255}
+
+\begin{document}
+
+\begin{tikzpicture}[scale=1.0, every node/.style={transform shape}]
+
+  \begin{interface}{Function}
+    \operation{Add Function Contribution}
+    \operation{Add Function State Variable Sensitivity}
+    \operation{Add Function Design Variable Sensitivity}
+  \end{interface}
+
+  \begin{class}{Failure Function}
+    \position[left=7.5cm, anchor=west]{Function.west}
+    \operation{Add Function Contribution}
+    \operation{Add Function State Variable Sensitivity}
+    \operation{Add Function Design Variable Sensitivity}
+  \end{class}
+
+  \begin{class}{Displacement Function}
+    \position[right=7.5cm, anchor=east]{Function.east}
+    \operation{Add Function Contribution}
+    \operation{Add Function State Variable Sensitivity}
+    \operation{Add Function Design Variable Sensitivity}
+  \end{class}
+
+  \begin{class}{Stochastic Function}
+    \position[below=4.0cm, anchor=south]{Function.south}
+    \attribute{deterministic function : Function}
+    \attribute{probabilistic space : Probabilistic Space}
+    %    \operation{Add Function}
+    %    \operation{Add Function State Variable Sensitivity}
+    %    \operation{Add Function Design Variable Sensitivity}
+  \end{class}
+
+  \begin{class}{Probabilistic Space}
+    \position[right=8.0cm, anchor=west]{Stochastic Function.west}
+    \operation{Add Probabilistic Variable}
+    \operation{Get Quadrature Points and Weight}
+    \operation{Evaluate Orthonormal Basis}
+  \end{class}
+
+  \begin{class}{Variance Function}
+    \position[below=7.5cm,  anchor=south]{Displacement Function.south}
+    \operation{Add Function Contribution}
+    \operation{Add Function State Variable Sensitivity}
+    \operation{Add Function Design Variable Sensitivity}
+  \end{class}
+
+  \begin{class}{Expectation Function}
+    \position[below=7.5cm,  anchor=south]{Failure Function.south}
+    \operation{Add Function Contribution}
+    \operation{Add Function State Variable Sensitivity}
+    \operation{Add Function Design Variable Sensitivity}
+  \end{class}
+
+
+  \generalization{Stochastic Function}{Function}
+  \generalization{Displacement Function}{Function}
+  \generalization{Failure Function}{Function}
+  \generalization[bend right=25]{Expectation Function}{Stochastic Function}
+  \generalization[bend left=25]{Variance Function}{Stochastic Function}
+
+  \composition{Stochastic Function}[uses]{Probabilistic Space}
+  \composition[bend left=17]{Stochastic Function}[uses]{Failure Function}
+  \composition[bend right=17]{Stochastic Function}[uses]{Displacement Function}
+
+  \package{Deterministic Function Library}{(Function)(Failure Function)(Displacement Function)}
+  \package{Semi-Intrusive Stochastic Galerkin Layer}{(Probabilistic Space)(Stochastic Function)(Expectation Function)(Variance Function)}
+
+\end{tikzpicture}
+
+\end{document}

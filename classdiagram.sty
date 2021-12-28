@@ -22,12 +22,9 @@
 \newcommand{\styleOperation}{\sffamily \small}
 \newcommand{\stylePackage}{\sffamily \bfseries}
 \newcommand{\styleAbstractClass}{\itshape}
-% \newcommand{\styleAbstractClass}{}
 \newcommand{\styleAbstractAttribute}{\itshape}
 \newcommand{\styleAbstractOperation}{\itshape}
-
-\newcommand{\textAbstractClass}{}
-% \newcommand{\textAbstractClass}{{\sffamily <<abstract>>} \\}
+\newcommand{\textAbstractClass}{{\sffamily <<abstract>>} \\}
 \newcommand{\textInterface}{{\sffamily <<interface>>} \\}
 
 \tikzstyle{cd common}=
@@ -112,31 +109,31 @@
   \def\mOpts{#1}      % TikZ Node Options
   \def\mType{#2}      % UML Stereotype (before name)
   \def\mName{#3}      % TikZ Node Name
-  
+
   \def\mPos{0, 0}     % TikZ Node Position
   \def\mLabel{#3}     % UML Name (i.e. TikZ Node Label)
   \def\mLabelStyle{\styleClass}
   \def\mAttributes{}  % UML Attribute List
   \def\mOperations{}  % UML Operation List
-  
+
   %redefine \abstract inside common environment
   \DeclareDocumentCommand \abstract {}
   {
     \def\mType{\textAbstractClass}
     \def\mLabelStyle{\styleAbstractClass}
   }
-  
+
   \NewDocumentCommand \name {m}
   {
     \def\mLabel{##1}
   }
-  
+
   \NewDocumentCommand \position {O{}m}
   {
     \appto\mOpts{, ##1}
     \def\mPos{##2}
   }
-  
+
   \NewDocumentCommand \attribute {sO{}m}
   {
     \IfBooleanTF {##1}
@@ -147,7 +144,7 @@
       \listadd{\mAttributes}{{\styleAttribute \pgfkeys{cd, ##2} ##3}}
     }
   }
-  
+
   \NewDocumentCommand \operation {sO{}m}
   {
     \IfBooleanTF {##1}
@@ -158,14 +155,14 @@
       \listadd{\mOperations}{{\styleOperation \pgfkeys{cd, ##2} ##3}}
     }
   }
-  
+
 }
 {
   % Macros to iterate over an internal list and print each element on its own line
   \providebool{newline}
   \def\printelem##1{\ifbool{newline}{\\##1\booltrue{newline}}{##1\booltrue{newline}}}
   \def\printlist##1{\forlistloop\printelem{##1}}
-  
+
   \node [cd~common, style/.expand~once=\mOpts] (\mName) at (\mPos)
   {
     \nodepart{one}\mType{\styleClass\mLabelStyle\mLabel}
