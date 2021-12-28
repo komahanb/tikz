@@ -1,0 +1,80 @@
+% This is the file survey.tex
+\documentclass{standalone}
+\input{../tikz}
+\input{../tableau_colors}
+\usepackage{classdiagram}
+\usepackage{graphics}
+\usepackage{tikz}
+%\usepackage[T1]{fontenc}
+%\usepackage[utf8]{inputenc}
+%\usepackage[T1]{fontenc}
+%\usepackage[margin=0cm]{geometry}
+% \usepackage[parfill]{parskip}
+\usepackage{expl3}
+\usepackage{float}
+\usepackage{listings}
+\usepackage{lmodern}
+\usepackage{courier}
+\usepackage{soul}
+\usepackage{xcolor}
+\usepackage{url}
+\usepackage{hyperref}
+\usepackage{filecontents}
+
+\definecolor{kwd}{RGB}{255, 255, 255}
+\definecolor{com}{RGB}{255, 255, 255}
+\definecolor{pun}{RGB}{255, 255, 255}
+\definecolor{typ}{RGB}{255, 255, 255}
+
+\begin{document}
+
+\begin{tikzpicture}[scale=1.0, every node/.style={transform shape}]
+
+  \begin{interface}{Element}
+    \operation{Add Residual and Jacobian}
+    \operation{Add Residual State Variable Sensitivity}
+    \operation{Add Residual Design Variable Sensitivity}
+  \end{interface}
+
+  \begin{class}{Beam Element}
+    \position[left=6.5cm, anchor=west]{Element.south west}
+    \operation{Add Residual and Jacobian}
+    \operation{Add Residual State Variable Sensitivity}
+    \operation{Add Residual Design Variable Sensitivity}
+  \end{class}
+
+  \begin{class}{Revolute Joint Element}
+    \position[right=6.5cm, anchor=east]{Element.south east}
+    \operation{Add Residual and Jacobian}
+    \operation{Add Residual State Variable Sensitivity}
+    \operation{Add Residual Design Variable Sensitivity}
+  \end{class}
+
+  \begin{class}{ProbabilisticSpace}
+    \position[below=4.25cm, anchor=west]{Beam Element.west}
+    \operation{Add Random Parameter}
+    \operation{Get Quadarature Points and Weight}
+    \operation{Evaluate Orthonormal Basis}
+  \end{class}
+
+  \begin{class}{StochasticElement}
+    \position[right=7.15cm, anchor=east]{ProbabilisticSpace.east}
+    \operation{Add Residual and Jacobian}
+    \operation{Add Residual State Variable Sensitivity}
+    \operation{Add Residual Design Variable Sensitivity}
+  \end{class}
+
+  \generalization{StochasticElement}{Element}
+  \generalization[bend right=25]{Revolute Joint Element}{Element}
+  \generalization[bend left=25]{Beam Element}{Element}
+
+  \composition{StochasticElement}[uses]{ProbabilisticSpace}
+  \composition[bend left=17]{StochasticElement}[uses]{Beam Element}
+  \composition[bend right=17]{StochasticElement}[uses]{Revolute Joint Element}
+
+  \package{Deterministic Element Library}{(Element)(Beam Element)(Revolute Joint Element)}
+  \package{Stochastic Galerkin Plugin}{(ProbabilisticSpace)(StochasticElement)}
+
+\end{tikzpicture}
+
+\end{document}
