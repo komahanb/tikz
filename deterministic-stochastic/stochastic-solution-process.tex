@@ -19,11 +19,11 @@
 \tikzstyle{cd nested}        =[cd relation, ox-]
 \tikzstyle{cd association}   =[cd relation, -]
 \tikzstyle{cd unidirectional}=[cd relation, -a>]
-\tikzstyle{cd generalization}=[cd relation, -i>, color=black, ultra thick]
+\tikzstyle{cd generalization}=[cd relation, -i>, color=black, very thick]
 \tikzstyle{cd realization}   =[cd relation, dashed, -i>]
 \tikzstyle{cd aggregation}   =[cd relation, <>-a>]
-\tikzstyle{cd composition}   =[cd relation, <*>-a>, color=dred, ultra thick]
-\tikzstyle{cd package}       =[ultra thick, rounded corners, draw=black, text=black]
+\tikzstyle{cd composition}   =[cd relation, <*>-a>, color=dred, very thick]
+\tikzstyle{cd package}       =[very thick, rounded corners, draw=black, text=black]
 \tikzstyle{cd package box}   =[cd package, inner sep=0.5cm, anchor=north west, top color=white, bottom color=white]
 \tikzstyle{cd package label} =[cd package, outer ysep=-0.5, anchor=south west, fill=white!50]
 
@@ -76,6 +76,80 @@
   }
 }
 
+\NewDocumentCommand \relationbendright {O{}mO{}O{}mO{}O{}d<>}
+{
+  \IfValueTF{#8}
+  {
+    % Quirk: The first point needs to be drawn twice
+    % http://tex.stackexchange.com/questions/123997/tikz-combining-multiple-paths-in-and-outside-foreach
+    \coordinate (c0) at (#2);
+    \path (c0)
+      \foreach \position [count=\count] in {#8}
+      {
+        \position coordinate (c\count)
+      };
+%     \path [cd~relation, #1] (#2) -- (c1)
+    \path [cd~relation, #1] (#2) to
+      node [cd~relation~role~start] {#6}
+      node [cd~relation~multiplicity~start] {#7}
+      (c1)
+      \foreach \position [count=\count] in {#8}
+      {
+        to (c\count)
+      }
+      to
+      node [cd~relation~role~end] {#3}
+      node [cd~relation~multiplicity~end] {#4}
+      (#5);
+  }
+  {
+%     \path [cd~relation, #1] (#2) -- (#5)
+    \path [cd~relation, #1] (#2) |-
+      node [cd~relation~role~end] {#3}
+      node [cd~relation~multiplicity~end] {#4}
+      node [cd~relation~role~start] {#6}
+      node [cd~relation~multiplicity~start] {#7}
+      (#5);
+  }
+}
+
+\NewDocumentCommand \relationbendleft {O{}mO{}O{}mO{}O{}d<>}
+{
+  \IfValueTF{#8}
+  {
+    % Quirk: The first point needs to be drawn twice
+    % http://tex.stackexchange.com/questions/123997/tikz-combining-multiple-paths-in-and-outside-foreach
+    \coordinate (c0) at (#2);
+    \path (c0)
+      \foreach \position [count=\count] in {#8}
+      {
+        \position coordinate (c\count)
+      };
+%     \path [cd~relation, #1] (#2) -- (c1)
+    \path [cd~relation, #1] (#2) to
+      node [cd~relation~role~start] {#6}
+      node [cd~relation~multiplicity~start] {#7}
+      (c1)
+      \foreach \position [count=\count] in {#8}
+      {
+        to (c\count)
+      }
+      to
+      node [cd~relation~role~end] {#3}
+      node [cd~relation~multiplicity~end] {#4}
+      (#5);
+  }
+  {
+%     \path [cd~relation, #1] (#2) -- (#5)
+    \path [cd~relation, #1] (#2) -|
+      node [cd~relation~role~end] {#3}
+      node [cd~relation~multiplicity~end] {#4}
+      node [cd~relation~role~start] {#6}
+      node [cd~relation~multiplicity~start] {#7}
+      (#5);
+  }
+}
+
 \NewDocumentCommand \nested {O{}mO{}O{}mO{}O{}d<>}
 {
   \relation[cd~nested, #1]{#2}[#3][#4]{#5}[#6][#7]<#8>
@@ -84,6 +158,16 @@
 \NewDocumentCommand \generalization {O{}mO{}O{}mO{}O{}d<>}
 {
   \relation[cd~generalization, #1]{#2}[#3][#4]{#5}[#6][#7]<#8>
+}
+
+\NewDocumentCommand \generalizationbendright {O{}mO{}O{}mO{}O{}d<>}
+{
+  \relationbendright[cd~generalization, #1]{#2}[#3][#4]{#5}[#6][#7]<#8>
+}
+
+\NewDocumentCommand \generalizationbendleft {O{}mO{}O{}mO{}O{}d<>}
+{
+  \relationbendleft[cd~generalization, #1]{#2}[#3][#4]{#5}[#6][#7]<#8>
 }
 
 \ExplSyntaxOff
@@ -114,18 +198,26 @@
 \begin{document}
 \thispagestyle{empty}
 
-\begin{tikzpicture}[scale=1.0, eultra node/.style={transform shape}]
+\begin{tikzpicture}[scale=1.0, every node/.style={transform shape}]
 
-  \node [block, ultra thick, node distance=2.5cm, text width=6.5cm, fill=white] (pde) at (0,0) {Stochastic Differential Equations};
-  \node [block, ultra thick, node distance=2.5cm, text width=6.5cm, fill=white, below = 1.0 cm of pde] (discretization) {Use Spatial, Temporal \& \\{Probabilistic} Discretization Principles};
-  \node [block, ultra thick, node distance=2.5cm, text width=6.5cm, fill=white, below = 1.0 cm of discretization] (algebraic) {Stochastic Algebraic Equations};
-  \node [block, ultra thick, node distance=2.5cm, text width=6.5cm, fill=white, below = 1.0 cm of algebraic] (evaluation) {Evaluate Residuals, Jacobian, Initial \& Boundary Conditions};
+  \node [block, very thick, node distance=2.5cm, text width=7.5cm, fill=white] (pde) at (0,0) {Stochastic Differential Equations};
+  \node [block, very  thick, node distance=2.5cm, text width=7.5cm, fill=white, below = 1.0 cm of pde] (discretization) {Use Spatial, Temporal \& \\{Probabilistic} Discretization Methods};
+  \node [block, very thick, node distance=2.5cm, text width=7.5cm, fill=white, below = 1.0 cm of discretization] (algebraic) {Stochastic Algebraic Equations};
+  \node [block, very thick, node distance=2.5cm, text width=7.5cm, fill=white, below = 1.0 cm of algebraic] (evaluation) {Evaluate Residuals, Jacobian, Initial \& Boundary Conditions};
 
-  \generalization{pde}{discretization}
+  \node [block, very thick, node distance=2.5cm, text width=7.5cm, fill=lgray!0, right = 1.0 cm of discretization, draw=dblue] (deterministic-discretization) {Use Spatial, Temporal Discretization Methods \\  (Deterministic Framework)};
+  \node [block, very thick, node distance=2.5cm, text width=7.5cm, fill=lgray!0, right = 1.0 cm of algebraic, draw=dblue] (stochastic-sampling) {Use Probabilistic Sampling to Perform Galerkin Projection};
+
+  \generalization{pde}{discretization}{}{}{}{}{}{}{}{};
   \generalization{discretization}{algebraic}
   \generalization{algebraic}{evaluation}
 
-  \package{Classical Stochastic Galerkin Method}{(pde)(discretization)(algebraic)(evaluation)}
+  \generalizationbendleft[draw=dblue]{pde}{deterministic-discretization}
+  \generalization[draw=dblue]{deterministic-discretization}{stochastic-sampling}
+  \generalizationbendright[draw=dblue]{stochastic-sampling}{evaluation}
+
+%  \package{Classical Stochastic Galerkin}{(pde)(discretization)(algebraic)(evaluation)}
+%  \package{}{(deterministic-discretization)(stochastic-sampling)}
 
 \end{tikzpicture}
 
