@@ -195,36 +195,15 @@
   \pgfusepathqfillstroke
 }
 
-\begin{document}
-\thispagestyle{empty}
-
+\begin{document}\thispagestyle{empty}
 \begin{tikzpicture}[scale=1.0, every node/.style={transform shape}, font=\large]
-%
   \node [block, very thick, node distance=2.5cm, text width=10.0cm, fill=white] (pde) at (0,0) {Stochastic Differential Equations};
   \node [block, very thick, node distance=2.5cm, text width=10.0cm, fill=white, below = 1.0 cm of pde] (discretization) {Use Spatial, Temporal \& \\{Probabilistic} Discretization Methods};
   \node [block, very thick, node distance=2.5cm, text width=10.0cm, fill=white, below = 1.0 cm of discretization] (algebraic) {Stochastic Algebraic Equations};
   \node [block, very thick, node distance=2.5cm, text width=10.0cm, fill=white, below = 1.0 cm of algebraic] (evaluation) {Evaluate Stochastic Residuals, \\ Jacobian, Initial \& Boundary Conditions};
-
-  \node [block, very thick, node distance=2.5cm, text width=10.0cm, fill=white   , right = 1.0 cm of pde, draw=black] (spde) {Stochastic Differential Equations};
-  \node [block, very thick, node distance=2.5cm, text width=10.0cm, fill=lblue!50, right = 1.0 cm of discretization, draw=black] (deterministic-discretization) {Use Spatial, Temporal Discretization Methods \\ (Deterministic Framework)};
-  \node [block, very thick, node distance=2.5cm, text width=10.0cm, fill=lblue!50, right = 1.0 cm of algebraic, draw=black] (stochastic-sampling) {Use Probabilistic Sampling to Perform Galerkin Projection};
-  \node [block, very thick, node distance=2.5cm, text width=10.0cm, fill=white   , right = 1.0 cm of evaluation] (sevaluation) {Evaluate Stochastic Residuals, \\ Jacobian, Initial \& Boundary Conditions};
-
   \generalization[double arrow=4pt colored by black and white,draw=black]{pde}{discretization};
   \generalization[double arrow=4pt colored by black and white,draw=black]{discretization}{algebraic};
   \generalization[double arrow=4pt colored by black and white,draw=black]{algebraic}{evaluation};
-
-  \generalization[double arrow=4pt colored by black and white,draw=black]{spde}{deterministic-discretization};
-  \generalization[double arrow=4pt colored by black and white,draw=black]{deterministic-discretization}{stochastic-sampling};
-  \generalization[double arrow=4pt colored by black and white,draw=black]{stochastic-sampling}{sevaluation};
-
-  %  \generalizationbendleft[double arrow=4pt colored by black and white,draw=black]{pde}{deterministic-discretization}
-  %  \generalization[double arrow=4pt colored by black and white,draw=black]{deterministic-discretization}{stochastic-sampling}
-  %  \generalizationbendright[double arrow=4pt colored by black and white, draw=black]{stochastic-sampling}{evaluation}
-
   \package{Intrusive Stochastic Galerkin}{(pde)(discretization)(algebraic)(evaluation)}
-  \package{Semi-Intrusive Stochastic Galerkin}{(spde)(deterministic-discretization)(stochastic-sampling)(sevaluation)}
-  %
 \end{tikzpicture}
-
 \end{document}
