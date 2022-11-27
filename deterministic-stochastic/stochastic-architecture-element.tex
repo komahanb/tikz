@@ -55,7 +55,7 @@
     \begin{class}{Stochastic Element}
       \position[below=5.0cm, anchor=south]{Element.south}
     \attribute{deterministic element : Element}
-    \attribute{probabilistic space : Probabilistic Space}
+    \attribute{probabilistic domain : Probabilistic Domain}
     \operation{Add Residual and Jacobian}
     \operation{Add Residual State Variable Sensitivity}
     \operation{Add Residual Design Variable Sensitivity}
@@ -63,7 +63,7 @@
 
 
 
-  \begin{class}{Probabilistic Space}
+  \begin{class}{Probabilistic Domain}
     \position[left=7.5cm, anchor=west]{Stochastic Element.west}
 %    \position[below=4.25cm, anchor=west]{Beam Element.west}
     \operation{Add Probabilistic Variable}
@@ -75,12 +75,12 @@
   \generalization{Revolute Joint Element}{Element}
   \generalization{Beam Element}{Element}
 
-  \composition{Stochastic Element}[uses]{Probabilistic Space}
+  \composition{Stochastic Element}[uses]{Probabilistic Domain}
   \composition[bend left=17]{Stochastic Element}[uses]{Beam Element}
   \composition[bend right=17]{Stochastic Element}[uses]{Revolute Joint Element}
 
   \package{Deterministic Element Library}{(Element)(Beam Element)(Revolute Joint Element)}
-  \package{Semi-Intrusive Stochastic Galerkin Layer}{(Probabilistic Space)(Stochastic Element)}
+  \package{Semi-Intrusive Stochastic Galerkin Layer}{(Probabilistic Domain)(Stochastic Element)}
 
 \end{tikzpicture}
 

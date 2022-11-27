@@ -52,13 +52,13 @@
   \begin{class}{Stochastic Function}
     \position[below=4.0cm, anchor=south]{Function.south}
     \attribute{deterministic function : Function}
-    \attribute{probabilistic space : Probabilistic Space}
+    \attribute{probabilistic domain : Probabilistic Domain}
     %    \operation{Add Function}
     %    \operation{Add Function State Variable Sensitivity}
     %    \operation{Add Function Design Variable Sensitivity}
   \end{class}
 
-  \begin{class}{Probabilistic Space}
+  \begin{class}{Probabilistic Domain}
     \position[right=8.0cm, anchor=west]{Stochastic Function.west}
     \operation{Add Probabilistic Variable}
     \operation{Get Quadrature Points and Weight}
@@ -86,12 +86,12 @@
   \generalization[bend right=25]{Expectation Function}{Stochastic Function}
   \generalization[bend left=25]{Variance Function}{Stochastic Function}
 
-  \composition{Stochastic Function}[uses]{Probabilistic Space}
+  \composition{Stochastic Function}[uses]{Probabilistic Domain}
   \composition[bend left=17]{Stochastic Function}[uses]{Failure Function}
   \composition[bend right=17]{Stochastic Function}[uses]{Displacement Function}
 
   \package{Deterministic Function Library}{(Function)(Failure Function)(Displacement Function)}
-  \package{Semi-Intrusive Stochastic Galerkin Layer}{(Probabilistic Space)(Stochastic Function)(Expectation Function)(Variance Function)}
+  \package{Semi-Intrusive Stochastic Galerkin Layer}{(Probabilistic Domain)(Stochastic Function)(Expectation Function)(Variance Function)}
 
 \end{tikzpicture}
 
