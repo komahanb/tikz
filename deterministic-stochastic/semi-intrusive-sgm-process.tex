@@ -1,0 +1,212 @@
+\documentclass[margin=1mm]{standalone}
+
+\input{../tikz}
+\input{../font}
+\input{../tableau_colors}
+
+\definecolor{cd relation fill}{RGB}{255, 255, 255}
+
+\usepackage{expl3, xparse, etoolbox, tikz, helvet}
+\usetikzlibrary{arrows, shapes, fit, backgrounds, turtle, shadings, positioning}
+
+\tikzstyle{cd relation}                   =[draw=black, thick]
+\tikzstyle{cd relation text}              =[text=black, sloped, font=\sffamily]
+\tikzstyle{cd relation role start}        =[cd relation text, above] %near start,
+\tikzstyle{cd relation role end}          =[cd relation text, below] %near end,
+\tikzstyle{cd relation multiplicity start}=[cd relation text, below] %near start,
+\tikzstyle{cd relation multiplicity end}  =[cd relation text, above] %%%%%near end,
+
+\tikzstyle{cd nested}        =[cd relation, ox-]
+\tikzstyle{cd association}   =[cd relation, -]
+\tikzstyle{cd unidirectional}=[cd relation, -a>]
+\tikzstyle{cd generalization}=[cd relation, -i>, color=black, very thick]
+\tikzstyle{cd realization}   =[cd relation, dashed, -i>]
+\tikzstyle{cd aggregation}   =[cd relation, <>-a>]
+\tikzstyle{cd composition}   =[cd relation, <*>-a>, color=dred, very thick]
+\tikzstyle{cd package}       =[very thick, rounded corners, draw=black, text=black]
+\tikzstyle{cd package box}   =[cd package, inner sep=0.5cm, anchor=north west, top color=white, bottom color=white]
+\tikzstyle{cd package label} =[cd package, outer ysep=-0.5, anchor=south west, fill=white]
+
+\tikzstyle{unidirectional}=[-a>]
+
+\newcommand{\stylePackage}{\sffamily\large \bfseries}
+
+\ExplSyntaxOn
+\NewDocumentCommand \package {O{}mm}
+{
+  \begin{pgfonlayer}{background}
+  \node[cd~package~box, fit=#3, #1] (package #2) {};
+  \node[cd~package~label, #1] (package #2 label) at (package #2.north~west) {\stylePackage #2};
+  \end{pgfonlayer}
+}
+\NewDocumentCommand \relation {O{}mO{}O{}mO{}O{}d<>}
+{
+  \IfValueTF{#8}
+  {
+    % Quirk: The first point needs to be drawn twice
+    % http://tex.stackexchange.com/questions/123997/tikz-combining-multiple-paths-in-and-outside-foreach
+    \coordinate (c0) at (#2);
+    \path (c0)
+      \foreach \position [count=\count] in {#8}
+      {
+        \position coordinate (c\count)
+      };
+%     \path [cd~relation, #1] (#2) -- (c1)
+    \path [cd~relation, #1] (#2) to
+      node [cd~relation~role~start] {#6}
+      node [cd~relation~multiplicity~start] {#7}
+      (c1)
+      \foreach \position [count=\count] in {#8}
+      {
+        to (c\count)
+      }
+      to
+      node [cd~relation~role~end] {#3}
+      node [cd~relation~multiplicity~end] {#4}
+      (#5);
+  }
+  {
+%     \path [cd~relation, #1] (#2) -- (#5)
+    \path [cd~relation, #1] (#2) to
+      node [cd~relation~role~end] {#3}
+      node [cd~relation~multiplicity~end] {#4}
+      node [cd~relation~role~start] {#6}
+      node [cd~relation~multiplicity~start] {#7}
+      (#5);
+  }
+}
+
+\NewDocumentCommand \relationbendright {O{}mO{}O{}mO{}O{}d<>}
+{
+  \IfValueTF{#8}
+  {
+    % Quirk: The first point needs to be drawn twice
+    % http://tex.stackexchange.com/questions/123997/tikz-combining-multiple-paths-in-and-outside-foreach
+    \coordinate (c0) at (#2);
+    \path (c0)
+      \foreach \position [count=\count] in {#8}
+      {
+        \position coordinate (c\count)
+      };
+%     \path [cd~relation, #1] (#2) -- (c1)
+    \path [cd~relation, #1] (#2) to
+      node [cd~relation~role~start] {#6}
+      node [cd~relation~multiplicity~start] {#7}
+      (c1)
+      \foreach \position [count=\count] in {#8}
+      {
+        to (c\count)
+      }
+      to
+      node [cd~relation~role~end] {#3}
+      node [cd~relation~multiplicity~end] {#4}
+      (#5);
+  }
+  {
+%     \path [cd~relation, #1] (#2) -- (#5)
+    \path [cd~relation, #1] (#2) |-
+      node [cd~relation~role~end] {#3}
+      node [cd~relation~multiplicity~end] {#4}
+      node [cd~relation~role~start] {#6}
+      node [cd~relation~multiplicity~start] {#7}
+      (#5);
+  }
+}
+
+\NewDocumentCommand \relationbendleft {O{}mO{}O{}mO{}O{}d<>}
+{
+  \IfValueTF{#8}
+  {
+    % Quirk: The first point needs to be drawn twice
+    % http://tex.stackexchange.com/questions/123997/tikz-combining-multiple-paths-in-and-outside-foreach
+    \coordinate (c0) at (#2);
+    \path (c0)
+      \foreach \position [count=\count] in {#8}
+      {
+        \position coordinate (c\count)
+      };
+%     \path [cd~relation, #1] (#2) -- (c1)
+    \path [cd~relation, #1] (#2) to
+      node [cd~relation~role~start] {#6}
+      node [cd~relation~multiplicity~start] {#7}
+      (c1)
+      \foreach \position [count=\count] in {#8}
+      {
+        to (c\count)
+      }
+      to
+      node [cd~relation~role~end] {#3}
+      node [cd~relation~multiplicity~end] {#4}
+      (#5);
+  }
+  {
+%     \path [cd~relation, #1] (#2) -- (#5)
+    \path [cd~relation, #1] (#2) -|
+      node [cd~relation~role~end] {#3}
+      node [cd~relation~multiplicity~end] {#4}
+      node [cd~relation~role~start] {#6}
+      node [cd~relation~multiplicity~start] {#7}
+      (#5);
+  }
+}
+
+\NewDocumentCommand \nested {O{}mO{}O{}mO{}O{}d<>}
+{
+  \relation[cd~nested, #1]{#2}[#3][#4]{#5}[#6][#7]<#8>
+}
+
+\NewDocumentCommand \generalization {O{}mO{}O{}mO{}O{}d<>}
+{
+  \relation[cd~generalization, #1]{#2}[#3][#4]{#5}[#6][#7]<#8>
+}
+
+\NewDocumentCommand \generalizationbendright {O{}mO{}O{}mO{}O{}d<>}
+{
+  \relationbendright[cd~generalization, #1]{#2}[#3][#4]{#5}[#6][#7]<#8>
+}
+
+\NewDocumentCommand \generalizationbendleft {O{}mO{}O{}mO{}O{}d<>}
+{
+  \relationbendleft[cd~generalization, #1]{#2}[#3][#4]{#5}[#6][#7]<#8>
+}
+
+\ExplSyntaxOff
+
+% Inheritance/Implementation: Hollow triangular arrow head
+\pgfarrowsdeclare{<i}{i>}
+{
+  \arrowsize=0.3cm
+  \advance\arrowsize by 0.5\pgflinewidth
+  \pgfarrowsleftextend{-0.5\pgflinewidth}
+  \pgfarrowsrightextend{\arrowsize + 0.5\pgflinewidth}
+}
+{
+  \arrowsize=0.3cm
+  \advance\arrowsize by 0.5\pgflinewidth
+  \pgfsetdash{}{0pt} % do not dash
+  \pgfsetroundjoin   % path joins rounded
+  \pgfsetroundcap    % path ends rounded
+  \pgfpathmoveto{\pgfpoint{0}{0.5\arrowsize}}
+  \pgfpathlineto{\pgfpoint{\arrowsize}{0pt}}
+  \pgfpathlineto{\pgfpoint{0}{-0.5\arrowsize}}
+  \pgfpathlineto{\pgfpoint{0}{0.5\arrowsize}}
+%   \pgfusepathqstroke
+  \pgfsetfillcolor{cd relation fill}
+  \pgfusepathqfillstroke
+}
+
+\begin{document}
+\thispagestyle{empty}
+
+\begin{tikzpicture}[scale=1.0, every node/.style={transform shape}, font=\large]
+  \node [block, very thick, node distance=2.5cm, text width=10.0cm, fill=white] (pde) at (0,0) {Stochastic Differential Equations};
+  \node [block, very thick, node distance=2.5cm, text width=10.0cm, fill=lblue!30, below = 1.0 cm of pde] (discretization) {Use Spatial, Temporal Discretization Methods \\ (Deterministic Framework)};
+  \node [block, very thick, node distance=2.5cm, text width=10.0cm, fill=lblue!30, below = 1.0 cm of discretization] (algebraic) {Use Probabilistic Sampling to Perform Galerkin Projection};
+  \node [block, very thick, node distance=2.5cm, text width=10.0cm, fill=white, below = 1.0 cm of algebraic] (evaluation) {Evaluate Stochastic Residuals, \\ Jacobian, Initial \& Boundary Conditions};
+  \generalization[double arrow=4pt colored by black and white,draw=black]{pde}{discretization};
+  \generalization[double arrow=4pt colored by black and white,draw=black]{discretization}{algebraic};
+  \generalization[double arrow=4pt colored by black and white,draw=black]{algebraic}{evaluation};
+  \package{Semi-Intrusive Stochastic Galerkin}{(pde)(discretization)(algebraic)(evaluation)};
+\end{tikzpicture}
+
+\end{document}

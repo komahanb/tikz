@@ -38,16 +38,17 @@
   \draw[spring]  (m1.east|-aux) -- (m2.west|-aux) node[midway,above=1mm]{$k_2$};
   \draw[spring]  (m2.east|-aux) -- (m3.west|-aux) node[midway,above=1mm]{$k_3$};
   \draw[spring] ([yshift=0mm]g2.west) coordinate(aux) -- (m3.east|-aux) node[midway,above=1mm]{$k_4$};
-
-%  \foreach \X in {1,2,3}{
-%    \draw[thin,dashed] (m\X.north) -- ++ (-0.5,0.5) coordinate[midway](aux\X);
-%    \draw[latex-] (0.5,0) node[right,midway,above]{$u_\X$} -- ++ (aux\X);
-%    \draw[latex-] (aux\X) -- ++ (-0.5,0) node[midway,above]{$u_\X$} node[right,ground,minimum height=7mm,minimum width=1mm] (g'\X){};
-
-    %\draw[thin,dashed] (m\X.south) -- ++ (0,-1) coordinate[pos=0.85](aux'\X);
-    %\draw[latex-] (aux'\X) -- ++ (-1,0) node[midway,above]{$x_\X$} node[left,ground,minimum height=7mm,minimum width=1mm] (g'\X){};
-    %\draw[thick] (g'\X.north east) -- (g'\X.south east);
-%  }
+%%
+%%   \foreach \X in {1,2,3}{
+%%     \draw[thin,dashed] (m\X.north) -- ++ (-0.5,0.5) coordinate[midway](aux\X);
+%%     \draw[latex-] (0.5,0) node[right,midway,above]{$u_\X$} -- ++ (aux\X);
+%%     \draw[latex-] (aux\X) -- ++ (-0.5,0) node[midway,above]{$u_\X$} node[right,ground,minimum height=7mm,minimum width=1mm] (g'\X){};
+%%
+%%     \draw[thin,dashed] (m\X.south) -- ++ (0,-1) coordinate[pos=0.85](aux'\X);
+%%     \draw[latex-] (aux'\X) -- ++ (-1,0) node[midway,above]{$x_\X$} node[left,ground,minimum height=7mm,minimum width=1mm] (g'\X){};
+%%     \draw[thick] (g'\X.north east) -- (g'\X.south east);
+%%   }
+  %%
 
 \end{tikzpicture}
 

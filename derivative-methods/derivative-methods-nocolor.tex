@@ -1,0 +1,100 @@
+\documentclass[margin=1mm]{standalone}
+
+\input{../tikz}
+\input{../font}
+\input{../tableau_colors}
+
+\usepackage{smartdiagram}
+
+\begin{document}
+\thispagestyle{empty}
+
+\begin{tikzpicture}[auto]
+
+  %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+  %                   NUMERICAL DERIVATIVES                    %
+  %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+  
+  \node [block, ultra thick, 
+    node distance=4.0cm, 
+    inner ysep=2em, 
+    inner xsep=1em, 
+    text width=15cm,
+    fill=white!30,
+    font=\Huge] at (0,0) (numerical-principle) {
+    use existing function implementation and produce numerical estimate of derivative
+  };
+  \node [block, ultra thick, 
+    node distance=0.0cm, 
+    inner ysep=1em,
+    inner xsep=0em, 
+    text width=10cm,
+    fill=white,
+    font=\Huge, above = -0.5cm of numerical-principle] (numerical-header) {
+    \textbf{Numerical Derivatives}
+  };
+  \node [cloud , ultra thick, node distance=5cm, text width=5cm, fill=white!30, font=\Huge, left = 1cm of numerical-principle] (fdm) {finite differences}; 
+  \draw[double arrow=7pt colored by black and white] (numerical-principle) -- (fdm);  
+  \node [cloud , ultra thick, node distance=5cm, text width=5cm, fill=white!30, font=\Huge, right = 1cm of numerical-principle] (csm) {complex \\ step}; 
+  \draw[double arrow=7pt colored by black and white] (numerical-principle) -- (csm);
+
+  %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+  %                   COMPUTATIONAL  DERIVATIVES               %
+  %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+  
+  \node [block, ultra thick, 
+    node distance=4.0cm, 
+    inner ysep=2em, 
+    inner xsep=1em, 
+    text width=15cm,
+    fill=white!30,
+    font=\Huge, below = 3.5cm] (computational-principle) {
+    use existing function implementation and produce code to evaluate derivative    
+  };
+  \node [block, ultra thick, 
+    node distance=0.0cm, 
+    inner ysep=1em,
+    inner xsep=0em, 
+    text width=12cm,
+    fill=white!25,
+    font=\Huge, above = -0.5cm of computational-principle] (computational-header) {
+    \textbf{Computational Derivatives}
+  };
+  \node [cloud , ultra thick, node distance=5cm, text width=5cm, fill=white!30, font=\Huge, right = 1cm of computational-principle] (adm) {algorithmic \\differentiation}; 
+  \draw[double arrow=7pt colored by black and white] (computational-principle) -- (adm);  
+
+  %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+  %                   SEMIANALYTIC DERIVATIVES                 %
+  %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+  
+  \node [block, ultra thick, 
+    node distance=6.0cm, 
+    inner ysep=2em, 
+    inner xsep=1em, 
+    text width=15cm,
+    fill=white!30,
+    font=\Huge, below of = computational-principle] (analytical-principle) {
+    \begin{itemize}
+      \item decompose as explicit and implicit parts
+      \item numerically evaluate the explicit part
+      \item algebraically solve the implicit part
+      %\item evaluate function and corresponding derivative when subject to implicit constraint on state variables
+    \end{itemize}
+  };
+  \node [block, ultra thick, 
+    node distance=0.0cm, 
+    inner ysep=1em,
+    inner xsep=0em, 
+    text width=12cm,
+    fill=white!25,
+    font=\Huge, above = -0.75cm of analytical-principle] (analytical-header) {
+    \textbf{Semianalytical Derivatives}
+  };
+  \node [cloud , ultra thick, node distance=5cm, text width=5cm, fill=white!30, font=\Huge, left = 1cm of analytical-principle] (adjoint) {adjoint \\ method}; 
+  \draw[double arrow=7pt colored by black and white] (analytical-principle) -- (adjoint);  
+  \node [cloud , ultra thick, node distance=5cm, text width=5cm, fill=white!30, font=\Huge, right = 1cm of analytical-principle] (direct) {direct \\ method}; 
+  \draw[double arrow=7pt colored by black and white] (analytical-principle) -- (direct);
+
+\end{tikzpicture}
+
+\end{document}

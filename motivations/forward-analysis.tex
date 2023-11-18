@@ -1,0 +1,64 @@
+\documentclass{standalone}
+
+\input{../tikz}
+%\input{../font}
+\input{../tableau_colors}
+
+\begin{document}
+\thispagestyle{empty}
+\begin{tikzpicture}[auto]
+
+  \node [block, very thick, node distance=3.5cm, text width=6cm, fill=white, font=\Large] (1) at (0,0) {\textsc{assume values for stochastic states variables}};
+
+
+  \node [block, very thick, node distance=3.5cm, text width=6cm, fill=white, font=\Large, below of = 1] (2) {\textsc{evaluate stochastic residuals and Jacobian}};
+
+  \node [block, very thick, node distance=3.5cm, text width=6cm, fill=white, font=\Large, below of = 2] (3) {\textsc{solve stochastic linear system for updates}};
+
+  \node [block, very thick, node distance=3.5cm, text width=6cm, fill=white, font=\Large, below of = 3] (4) {\textsc{apply updates and iterate until the residuals tolerances are met}};
+
+
+
+  \node [cloud, very thick, node distance=10.5cm, text width=6cm, fill=white, font=\Large, right of = 2] (quadrature) {\textsc{get quadrature points and weights}};
+
+  \node [cloud, very thick, node distance=10.5cm, text width=6cm, fill=white, font=\Large, right of = quadrature] (basis) {\textsc{evaluate probabilistic basis functions}};
+
+%  \node [cloud, very thick, node distance=3.5cm, text width=6cm, fill=white, font=\Large, below of = quadrature] (update-param) {update parameters};
+
+  \node [cloud, very thick, node distance=3.5cm, text width=6cm, fill=white, font=\Large, below of = basis] (deterministic-states) {\textsc{form deterministic states}};
+
+  \node [cloud, very thick, node distance=3.5cm, text width=6cm, fill=white, font=\Large, below of = deterministic-states] (deterministic-res-jac) {\textsc{evaluate deterministic residual and Jacobian}};
+
+
+%  \node [cloud, very thick, node distance=3.5cm, text width=6cm, fill=white, font=\Large, below of = quadrature] (basis) {evaluate probabilistic basis function};
+
+
+
+
+%% \node [block, very thick, node distance=3.5cm, text width=18cm, text height = 3cm, fill=lgray,font=\Large] (1) at (0,0) {};
+%% \node [cloud, very thick, node distance=3.5cm, text width=5.5cm, fill=gold,font=\Large] (1) at (0,0) {Design optimization of aeromechanical systems};
+%% \node [block, very thick, node distance=7.0cm, inner ysep=1em, text width=3cm,fill=lpink,font=\Large, left of = 1] (temporal-analysis) {
+%%   Temporal Analysis of\\ Physics
+%% };
+%% \node [block, very thick, node distance=3.0cm, inner ysep=1em, text width=4cm,fill=lorange,font=\Large, above of = 1] (uq-ouu) {
+%%   Uncertainty Quantification
+%% };
+%% \node [block, very thick, node distance=7.0cm, inner ysep=1em, text width=3cm,fill=lblue,font=\Large, right of = 1] (sensitivity-analysis) {
+%%   Temporal\\ Sensitivity Analysis
+%% };
+%%
+%% \draw[double arrow=7pt colored by black and lime,rounded corners]
+%% (uq-ouu)  -| (sensitivity-analysis);
+%%
+%% \draw[double arrow=7pt colored by black and lime,rounded corners]
+%% (uq-ouu) -| (temporal-analysis);
+%%
+%% \draw[double arrow=7pt colored by black and red]
+%% (temporal-analysis) -- (1);
+%%
+%% \draw[double arrow=7pt colored by black and red]
+%% (sensitivity-analysis) -- (1);
+%%
+\end{tikzpicture}
+
+\end{document}

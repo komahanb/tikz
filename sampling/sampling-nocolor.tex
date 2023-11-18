@@ -1,0 +1,69 @@
+\documentclass[margin=1mm]{standalone}
+%
+\input{../tikz}
+\input{../font}
+\input{../tableau_colors}
+%
+%\pgfdeclarelayer{background}
+%\pgfdeclarelayer{foreground}
+%\pgfsetlayers{background,foreground}
+%
+\begin{document}\thispagestyle{empty}
+
+\begin{tikzpicture}
+  %
+  \def\n{4}
+  %
+  \def\radiusi{2cm}
+  \def\radiusj{4.0cm}
+  \def\radiusk{7.0cm}
+  \def\radiusl{8.25cm}
+  %
+  \def\margini{25} % margin in angles, depends on the radius
+  \def\marginj{25}  % margin in angles, depends on the radius
+  \def\margink{12}  % margin in angles, depends on the radius
+  \def\marginl{3}  % margin in angles, depends on the radius
+
+  %
+ % \node[draw, circ, very thick, fill=white , fill opacity = 1, minimum size=2.2*\radiusl] at (0,0) {};
+  \node[draw, circ, very thick, fill=lred, fill opacity = 1, minimum size=1.65*\radiusk] at (0,0) {};
+  \node[draw, circ, very thick, fill=white , fill opacity = 1, minimum size=1.4*\radiusj] at (0,0) {};
+
+  % Green stripe
+  \node[draw, circ, very thick, fill=lgreen , fill opacity = 1, minimum size=2.25*\radiusk] at (0,0) {};
+  \node[draw, circ, very thick, fill=white, fill opacity = 1, minimum size=2.0*\radiusk] at (0,0) {};
+
+  \node[draw, circ, very thick, fill=lred , fill opacity = 1, minimum size=2.35*\radiusj] at (0,0) {};
+  \node[draw, circ, very thick, fill=white , fill opacity = 1, minimum size=2.0*\radiusj] at (0,0) {};
+
+  %
+  \node[draw, circ, very thick, fill=white, fill opacity = 1, minimum size=0.4*\radiusi,font=\Large\bfseries, align=center] at (0,0) {Probabilistic \\ Moments};
+
+  %
+  \foreach \s in {1,...,\n}{
+    \node[draw, circ, very thick, fill=gold!50, minimum size=1cm] at ({360/\n * (\s - 1)} : 1.1*\radiusi){$y_\s$};
+  }
+  %
+  \foreach \s in {1,...,\n}{
+    \coordinate (a) at ({360/\n * (\s - 1)} : 1.04*\radiusj);
+    \node[draw, circ, very thick, fill=white!50,  minimum size=1cm, align=center] at (a) {$R\left(y_\s,u(y_\s)\right)$\\$=$\\$0$};
+  }
+  %
+  \foreach \s in {1,...,\n}{
+    \node[draw, circ, very thick, fill=white!50, minimum size=1cm,align = center] at ({360/\n * (\s - 1)} : 1.03*\radiusk){
+      $F(y_\s,u(y_\s))$
+      \\ $\&$ \\
+      $\frac{\partial F}{\partial \xi}(y_\s,u(y_\s))$
+      \\ $\&$ \\
+      $F^2(y_\s,u(y_\s))$
+    };
+  }
+  %
+  \foreach \s in {1,...,\n}{
+    \node[draw, circ, very thick, fill=gold!50] at ({360/\n * (\s - 1)} : 1.05*\radiusl){$\alpha_\s$};
+%    \draw[-, very thick, >=latex] ({360/\n * (\s - 1) + \marginl} : \radiusl)
+%    arc ({360/\n * (\s - 1) + \marginl} : {360/\n * (\s)-\marginl} : \radiusl);
+  }
+\end{tikzpicture}
+
+\end{document}
