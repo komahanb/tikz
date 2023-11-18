@@ -1,0 +1,89 @@
+\documentclass[margin=1mm]{standalone}
+
+\input{../tikz}
+\input{../font}
+\input{../tableau_colors}
+
+%\tikzset{
+%    img/.style={inner sep=0, outer sep=0}
+%}
+\usepackage{calc}
+\begin{document}
+
+%%   \begin{tikzpicture}
+%%     %\node{\includegraphics[trim={5pt 5pt 5pt 5pt},clip,width=\textwidth]{multibody-dynamics.png}};
+%%     \node(a)[above left]{\includegraphics[trim={5pt 5pt 5pt 5pt},clip,width=0.33\textwidth]{trebuchet_time_lapse.png}};
+%%     \node(b)[right=of a]{\includegraphics[trim={5pt 5pt 5pt 5pt},clip,width=0.33\textwidth]{pendulum2.png}}; 
+%%     \node(c)[right=of b]{\includegraphics[trim={5pt 5pt 5pt 5pt},clip,width=0.33\textwidth]{triple_pendulum.png}};
+
+%%     \node(a1)[below=of a]{\includegraphics[trim={5pt 5pt 1cm 5pt},clip,width=0.33\textwidth]{flex-blade.png}};
+%%     \node(b1)[right=of a1]{\includegraphics[trim={5pt 2cm 5pt 2cm},clip,width=0.33\textwidth]{holed-shell3.png}};
+%%     \node(c1)[right=of b1]{\includegraphics[trim={5pt 5pt 5pt 5pt},clip,width=0.33\textwidth]{tail-sitter-timelapse.png}};
+
+%%     \node(a2)[below=of a1]{\includegraphics[trim={5pt 5pt 1cm 5pt},clip,width=0.33\textwidth]{flex-blade.png}};
+%%     \node(b2)[right=of a2]{\includegraphics[trim={5pt 2cm 5pt 2cm},clip,width=0.33\textwidth]{holed-shell3.png}};
+%%     \node(c2)[right=of b2]{\includegraphics[trim={5pt 5pt 5pt 5pt},clip,width=0.33\textwidth]{tail-sitter-timelapse.png}};
+%%   \end{tikzpicture}
+
+\begin{tikzpicture}
+  \def\dtheta{360/6};
+  \node [very thick, node distance=5.0cm, inner ysep=1em, text width=17cm,fill=white,font=\Huge\bfseries] (origin) at (0,0) {
+    \includegraphics[trim={5pt 5pt 5pt 5pt},clip,width=\textwidth]{four_blade.png}
+  };
+
+  % 0 deg
+  \node [very thick, node distance=5.0cm, inner ysep=1em, text width=12cm,fill=white,font=\Large] at ({0*\dtheta}:15) {
+    \includegraphics[trim={5pt 5pt 5pt 5pt},clip,width=\textwidth]{trebuchet_time_lapse.png}
+  };
+
+  % 60 deg
+  \node [very thick, node distance=5.0cm, inner ysep=1em, text width=12cm,fill=white,font=\Large] at ({1*\dtheta}:15) {
+    \includegraphics[trim={5pt 15pt 5pt 5pt},clip,width=\textwidth]{pendulum2.png}
+  };
+
+  %120 
+  \node [very thick, node distance=5.0cm, inner ysep=1em, text width=12cm,fill=white,font=\Large] at ({2*\dtheta}:15) {
+    \includegraphics[trim={5pt 5pt 5pt 5pt},clip,width=\textwidth]{triple_pendulum.png}
+  };
+
+  %180
+  \node [very thick, node distance=5.0cm, inner ysep=1em, text width=14cm,fill=white,font=\Large] at ({3*\dtheta}:15) {
+    \includegraphics[trim={5pt 25pt 1cm 5pt},clip,width=\textwidth]{flex-blade.png}
+  };
+
+  %240
+  \node [very thick, node distance=5.0cm, inner ysep=1em, text width=14cm,fill=white,font=\Large] at ({4*\dtheta}:15) {
+    \includegraphics[trim={5pt 2cm 5pt 2cm},clip,width=\textwidth]{holed-shell3.png}
+  };
+
+  %300
+  \node [very thick, node distance=5.0cm, inner ysep=1em, text width=12.5cm,fill=white,font=\Large] (tail) at ({5*\dtheta}:15) {
+    \includegraphics[trim={5pt 5pt 5pt 5pt},clip,width=\textwidth]{tail-sitter-timelapse.png}
+  };
+
+
+%  \draw[double arrow=7pt colored by black and lime]
+%  (origin) -- (tail);
+
+%  \node [circ, very thick, node distance=7.0cm, inner ysep=1em, text width=3cm,fill=lpink,font=\Large] (trebuchet) {
+%    \includegraphics[trim={5pt 5pt 5pt 5pt},clip,width=\textwidth]{trebuchet_time_lapse.png}
+%  };
+%  \node [circ, very thick, node distance=7.0cm, inner ysep=1em, text width=3cm,fill=lpink,font=\Large, left of = trebuchet] (temporal-analysis) {
+%    \includegraphics[trim={5pt 5pt 5pt 5pt},clip,width=\textwidth]{triple_pendulum.png}
+%  };
+  %\node [block, very thick, node distance=3.0cm, inner ysep=1em, text width=4cm,fill=lorange,font=\Large, above of = 1] (uq-ouu) {
+  %  Uncertainty Quantification
+  %};
+  %\node [block, very thick, node distance=7.0cm, inner ysep=1em, text width=3cm,fill=lblue,font=\Large, right of = 1] (sensitivity-analysis) {
+  %  Transient\\ Sensitivity Analysis
+  %};
+  %\draw[double arrow=7pt colored by black and lime,rounded corners]
+  %(uq-ouu)  -| (sensitivity-analysis);
+  %\draw[double arrow=7pt colored by black and lime,rounded corners]
+  %(uq-ouu) -| (temporal-analysis);
+  %\draw[double arrow=7pt colored by black and red]
+  %(temporal-analysis) -- (1);
+  %\draw[double arrow=7pt colored by black and red]
+  %(sensitivity-analysis) -- (1);
+\end{tikzpicture}
+\end{document}
