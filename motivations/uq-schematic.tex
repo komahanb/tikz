@@ -49,14 +49,17 @@
     sampled output
   };
 
-  \node [circ, very thick,
-    node distance=2cm,
-    inner ysep=1em,
-    text width=1.5cm,
-    fill=none,
+  \node[poly, very thick, regular polygon sides=6,
+    node distance = 2cm
+    inner xsep=0em,
+    inner ysep=0em,
+    text width=1.6cm,    
+    fill=none, scale=1,
+    rounded corners = 0cm,
     font=\large\bfseries, right = 2cm of ssm-osamples] (ssm-surrogate) {
-    surrogate approximator
-  };
+    surrogate\\
+    ~models};
+
   
   \node [block, very thick,
     node distance=2cm,
@@ -69,17 +72,8 @@
     variance     
   };
 
-
-
-  
- % \draw[double arrow=4pt colored by black and white,rounded corners]
- % (uq-ouu)  -| (sensitivity-analysis);
- % \draw[double arrow=4pt colored by black and white,rounded corners]
- % (uq-ouu) -| (temporal-analysis);
-
   \draw[double arrow=4pt colored by black and white]
   (dist) -- (ssm-isamples);
-
 
   \draw[double arrow=4pt colored by black and white]
   (ssm-isamples) -- (ssm-pde);
