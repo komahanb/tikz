@@ -1,0 +1,23 @@
+\documentclass[margin=1mm]{standalone}
+
+\usepackage[dvipsnames]{xcolor}
+\usepackage{adjustbox}
+
+\input{../tikz}
+\input{../font}
+\input{../tableau_colors}
+
+
+
+\begin{document}
+\thispagestyle{empty}
+
+%  left and  right, below, and top.
+% <left> <bottom> <right> <top>}
+\trimbox{2.5cm 0.35cm 2.95cm 0.35cm}{ 
+  \begin{tikzpicture}[auto]
+    \node at (0,0) {\includegraphics[width=\textwidth]{adjoint-based-ouu-uncropped.pdf}};
+  \end{tikzpicture}
+}
+
+\end{document}

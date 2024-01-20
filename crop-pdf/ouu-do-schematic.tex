@@ -1,0 +1,22 @@
+\documentclass[margin=1mm]{standalone}
+
+\usepackage[dvipsnames]{xcolor}
+\usepackage{adjustbox}
+
+\input{../tikz}
+\input{../font}
+\input{../tableau_colors}
+
+
+
+\begin{document}
+\thispagestyle{empty}
+
+% <left> <bottom> <right> <top>}
+\trimbox{1.0cm 2.25cm 0.88cm 1.8cm}{ 
+  \begin{tikzpicture}[auto]
+    \node at (0,0) {\includegraphics[width=\textwidth]{ouu-do-schematic-uncropped.pdf}};
+  \end{tikzpicture}
+}
+
+\end{document}

@@ -1,0 +1,22 @@
+\documentclass[margin=1mm]{standalone}
+
+\usepackage[dvipsnames]{xcolor}
+\usepackage{adjustbox}
+
+\input{../tikz}
+\input{../font}
+\input{../tableau_colors}
+
+
+
+\begin{document}
+\thispagestyle{empty}
+
+% <left> <bottom> <right> <top>}
+\trimbox{1.9cm 2.5cm 1.65cm 0.85cm}{
+  \begin{tikzpicture}[auto]
+    \node at (0,0) {\includegraphics[width=\textwidth]{ssm-schematic-uncropped.pdf}};
+  \end{tikzpicture}
+}
+
+\end{document}
