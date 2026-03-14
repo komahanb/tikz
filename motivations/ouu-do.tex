@@ -1,0 +1,29 @@
+\documentclass{standalone}
+
+\input{../tikz}
+\input{../font}
+\input{../tableau_colors}
+
+\begin{document}
+\begin{tikzpicture}[auto]
+  \node [block, ultra thick, node distance=3.5cm, text width=18cm, text height = 3cm, fill=lgray,font=\Large] (1) at (0,0) {};
+  \node [cloud, ultra thick, node distance=3.5cm, text width=5.5cm, fill=gold,font=\Large] (1) at (0,0) {Design Optimization of Aeromechanical Systems};
+  \node [block, ultra thick, node distance=7.0cm, inner ysep=1em, text width=3cm,fill=lpink,font=\Large, left of = 1] (temporal-analysis) {
+    Analysis of Physics
+  };
+  \node [block, ultra thick, node distance=3.0cm, inner ysep=1em, text width=4cm, draw = black, fill=lorange,font=\Large, above of = 1] (uq-ouu) {
+    Analysis of Uncertainties
+  };
+  \node [block, ultra thick, node distance=7.0cm, inner ysep=1em, text width=3cm,fill=lblue,font=\Large, right of = 1] (sensitivity-analysis) {
+    Analysis of Sensitivities
+  };
+  \draw[double arrow=7pt colored by black and white,rounded corners]
+  (uq-ouu)  -| (sensitivity-analysis);
+  \draw[double arrow=7pt colored by black and white,rounded corners]
+  (uq-ouu) -| (temporal-analysis);
+  \draw[double arrow=7pt colored by black and white]
+  (temporal-analysis) -- (1);
+  \draw[double arrow=7pt colored by black and white]
+  (sensitivity-analysis) -- (1);
+\end{tikzpicture}
+\end{document}
